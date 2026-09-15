@@ -377,6 +377,17 @@ def get_spec(context: Context) -> Mapping[str, ScenarioInfo]:
             # irrigation_tech.py module docstring) -- one per basin.
             add.set["relation"].extend(irrigation_relation_names(context))
 
+        # Reservoir/dam storage technologies (real-data port of the legacy
+        # R model's storage_capacity.r, using MESSAGEix's native storage
+        # formulation) -- data-driven per basin like the network/crop
+        # technologies above, so registered dynamically here rather than
+        # statically enumerated in technology.yaml.
+        from .data.storage import get_spec_storage
+
+        storage_spec = get_spec_storage(context)
+        for set_name, elements in storage_spec["add"].set.items():
+            add.set[set_name].extend(elements)
+
         # Share commodity for groundwater
         results = {}
         df_node = context.all_nodes
