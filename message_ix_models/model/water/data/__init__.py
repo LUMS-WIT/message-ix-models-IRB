@@ -18,6 +18,7 @@ from .demands import add_irrigation_demand, add_sectoral_demands, add_water_avai
 from .infrastructure import add_desalination, add_infrastructure_techs
 from .irrigation import add_irr_structure
 from .network import add_network_techs
+from .storage import add_reservoir_storage
 from .water_for_ppl import cool_tech, non_cooling_tec
 from .water_supply import add_e_flow, add_water_supply
 
@@ -41,6 +42,7 @@ DATA_FUNCTIONS: list[DataFunc] = [
     add_desalination,
     add_e_flow,
     add_irr_structure,
+    add_reservoir_storage,  # Reservoir/dam storage (GRanD + WAPDA data port)
 ]
 
 DATA_FUNCTIONS_COUNTRY: list[DataFunc] = [
@@ -64,6 +66,7 @@ DATA_FUNCTIONS_COUNTRY: list[DataFunc] = [
     add_crop_land_techs,
     add_rainfed_techs,
     add_irrigation_techs,
+    add_reservoir_storage,  # Reservoir/dam storage (GRanD + WAPDA data port)
 ]
 
 
