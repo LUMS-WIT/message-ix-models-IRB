@@ -1021,12 +1021,21 @@ def _build_water_report_df(sc: Scenario) -> pd.DataFrame:
         "basin_to_reg", "basin_to_reg_plus",
         "irrigation_cereal", "irrigation_oilcrops", "irrigation_sugarcrops",
     ]
-    # Add hydro and cooling technologies present in this scenario
+    # Add hydro and cooling technologies present in this scenario, plus the
+    # crops/land/irrigation port (crop_<crop>, rainfed_<crop>,
+    # irr_<method>_<crop> -- message_ix_models.model.water.data.crops) and
+    # network.py's inter-basin transfer techs (river|.../canal_conv|.../
+    # trs_|...) -- none of these are in the hardcoded WATER_TECS list above
+    # because they postdate it. Without this, none of their ACT/input/
+    # output ever reaches _apply_iamc_mapping, so no amount of map_agg
+    # entries downstream can make e.g. irrigation withdrawal appear in the
+    # reported CSV -- confirmed missing this way, not a mapping gap.
     all_tecs = sc.set("technology").tolist()
     WATER_TECS += [
         t for t in all_tecs
         if any(kw in t for kw in
                ["hydro", "__ot_fresh", "__cl_fresh", "__ot_saline", "__air"])
+        or t.startswith(("irr_", "crop_", "rainfed_", "river|", "canal_conv|", "trs_|"))
     ]
     WATER_TECS = list(set(WATER_TECS))
     log.info(f"_build_water_report_df: {len(WATER_TECS)} technologies")
@@ -1096,8 +1105,26 @@ def _build_water_report_df(sc: Scenario) -> pd.DataFrame:
             m["Variable"] = "inv cost|" + m["technology"]
             _collect(m, "Variable", "MUSD/yr", "year_vtg", "cost")
 
-    # ── Total O&M costs ───────────────────────────────────────────────────
+    # ── Installed capacity ───────────────────────────────────────────────
+    # Not previously collected here (only CAP_NEW was) -- needed for time
+    # series of standing capacity, e.g. hydro. CAP is indexed by
+    # (node_loc, technology, year_vtg, year_act); _collect's groupby sums
+    # over year_vtg for a fixed year_act, giving total capacity surviving
+    # into that year, same as message_ix's own "Capacity|*" convention.
+    # Water infrastructure capacity is in MCM (matching CAP_NEW's existing
+    # convention below); hydro capacity is in GW -- these are genuinely
+    # different quantities, so split by technology rather than mislabel one.
     cap = sc.var("CAP", {"technology": WATER_TECS})
+    cap_nz = cap[cap["lvl"] != 0].copy() if not cap.empty else cap
+    if not cap_nz.empty:
+        cap_nz["Variable"] = "CAP|capacity|" + cap_nz["technology"]
+        is_hydro = cap_nz["technology"].str.contains("hydro")
+        if (~is_hydro).any():
+            _collect(cap_nz[~is_hydro], "Variable", "MCM/yr", "year_act", "lvl")
+        if is_hydro.any():
+            _collect(cap_nz[is_hydro], "Variable", "GW", "year_act", "lvl")
+
+    # ── Total O&M costs ───────────────────────────────────────────────────
     fix_c = sc.par("fix_cost", {"technology": WATER_TECS})
     if not cap.empty and not fix_c.empty:
         m = cap.merge(
@@ -1320,6 +1347,57 @@ def _apply_iamc_mapping(raw_df: pd.DataFrame) -> pd.DataFrame:
         v for v in raw_vars
         if v.startswith("in|water_supply_basin|freshwater_basin|basin_to_reg")
     ]
+    # Hydro generation/capacity: matched by pattern rather than a fixed
+    # technology list because hydro_hc/hydro_lc (and their commodity/level)
+    # come from the base energy model this water module is built onto, not
+    # from anything defined in this module -- see _build_water_report_df's
+    # WATER_TECS, which pulls in "any technology already in the scenario
+    # whose name contains 'hydro'" for exactly this reason.
+    hydro_generation = [
+        v for v in raw_vars
+        if v.startswith("out|") and "|electr|" in v
+        and re.search(r"\|hydro[^|]*\|", v)
+    ]
+    hydro_capacity = [v for v in raw_vars if v.startswith("CAP|capacity|hydro")]
+
+    # Real irrigation withdrawal (irr_<method>_<crop>, message_ix_models.
+    # model.water.data.crops.irrigation_tech) -- built from the module's own
+    # (method, crop) enumeration rather than guessed from the variable
+    # string, since a method name itself contains underscores (e.g.
+    # "irr_canal_lining_flood") so splitting "irr_canal_lining_flood_wheat"
+    # into method vs. crop isn't reliably recoverable by regex alone.
+    # Guarded: builds without this module (or its config/CSVs) still report
+    # everything else normally.
+    irrigation_withdrawal_by_crop: dict[str, list[str]] = {}
+    irrigation_losses_by_crop: dict[str, list[str]] = {}
+    try:
+        from message_ix_models.model.water.data.crops.common import (
+            CROPS as _CROPS,
+            IRRIGATION_METHODS as _IRRIGATION_METHODS,
+            irr_tech_name as _irr_tech_name,
+        )
+    except Exception:
+        log.info("_apply_iamc_mapping: crops/irrigation_tech module unavailable")
+    else:
+        for _crop in _CROPS:
+            _techs = {_irr_tech_name(m, _crop) for m in _IRRIGATION_METHODS}
+            irrigation_withdrawal_by_crop[_crop] = [
+                v for v in raw_vars
+                if v.startswith("in|water_avail_basin|surfacewater_basin|")
+                and v.split("|")[3] in _techs
+            ]
+            irrigation_losses_by_crop[_crop] = [
+                v for v in raw_vars
+                if v.startswith("out|water_avail_basin|groundwater_basin|")
+                and v.split("|")[3] in _techs
+            ]
+    irrigation_withdrawal_total = [
+        v for crop_vars in irrigation_withdrawal_by_crop.values() for v in crop_vars
+    ]
+    irrigation_losses_total = [
+        v for crop_vars in irrigation_losses_by_crop.values() for v in crop_vars
+    ]
+
     cooling_fresh_water = [
         v for v in raw_vars
         if v.startswith("in|water_supply|surfacewater|") and "fresh" in v
@@ -1587,6 +1665,13 @@ def _apply_iamc_mapping(raw_df: pd.DataFrame) -> pd.DataFrame:
         ["Water Withdrawal|Electricity|Cooling|Once Through|Saline Water",
          cooling_ot_saline_water, "MCM/yr"],
         ["Water Return|Electricity|Cooling", fresh_return_emissions, "MCM/yr"],
+        ["Generation|Electricity|Hydro", hydro_generation, "GWa/yr"],
+        ["Capacity|Electricity|Hydro", hydro_capacity, "GW"],
+        ["Water Withdrawal|Irrigation", irrigation_withdrawal_total, "MCM/yr"],
+        ["Irrigation Losses|Groundwater Recharge", irrigation_losses_total, "MCM/yr"],
+    ] + [
+        [f"Water Withdrawal|Irrigation|{crop.title()}", crop_vars, "MCM/yr"]
+        for crop, crop_vars in irrigation_withdrawal_by_crop.items()
     ]
 
     # ── Apply aggregation using pandas groupby (no pyam) ─────────────────────
@@ -1602,6 +1687,46 @@ def _apply_iamc_mapping(raw_df: pd.DataFrame) -> pd.DataFrame:
         agg["variable"] = iamc_name
         agg["unit"] = unit
         result_dfs.append(agg)
+
+    # ── Hydro water withdrawal (ratio applied to generation, not a plain
+    # sum, so it can't live in map_agg above) ────────────────────────────────
+    # Port of multiply_electricity_output_of_hydro's calculation, which only
+    # ever ran in the slow/legacy report() branch *after* the fast-path
+    # early return below -- i.e. it never actually executed for the basin
+    # models (Pakistan IRB) this repo builds. Reproduced here in pandas so
+    # hydro's water use appears in the CSV every other Water Withdrawal|*
+    # variable does.
+    if hydro_generation:
+        perf_path = package_data_path(
+            "water", "ppl_cooling_tech", "tech_water_performance_ssp_msg.csv"
+        )
+        perf = pd.read_csv(perf_path)
+        ratio_by_tech = (
+            perf.set_index("technology_name")["water_withdrawal_mid_m3_per_output"]
+            * m3_GJ_TO_MCM_GWa
+        )
+        hydro_rows = raw_df[raw_df["variable"].isin(hydro_generation)].copy()
+        hydro_rows["tech"] = hydro_rows["variable"].str.extract(r"\|(hydro[^|]*)\|")
+        hydro_rows["ratio"] = hydro_rows["tech"].map(ratio_by_tech)
+        unmatched = sorted(set(hydro_rows.loc[hydro_rows["ratio"].isna(), "tech"]))
+        if unmatched:
+            log.warning(
+                "_apply_iamc_mapping: no water-withdrawal performance data for "
+                f"hydro technologies {unmatched}; excluded from "
+                "Water Withdrawal|Electricity|Hydro*"
+            )
+        hydro_rows = hydro_rows.dropna(subset=["ratio"])
+        if not hydro_rows.empty:
+            hydro_rows["value"] = hydro_rows["value"] * hydro_rows["ratio"]
+            total = hydro_rows.groupby(id_cols, as_index=False)["value"].sum()
+            total["variable"] = "Water Withdrawal|Electricity|Hydro"
+            total["unit"] = "MCM/yr"
+            result_dfs.append(total)
+            for tech, sub in hydro_rows.groupby("tech"):
+                t_agg = sub.groupby(id_cols, as_index=False)["value"].sum()
+                t_agg["variable"] = f"Water Withdrawal|Electricity|Hydro|{tech}"
+                t_agg["unit"] = "MCM/yr"
+                result_dfs.append(t_agg)
 
     if not result_dfs:
         log.warning("_apply_iamc_mapping: no mappable variables found — returning raw")
