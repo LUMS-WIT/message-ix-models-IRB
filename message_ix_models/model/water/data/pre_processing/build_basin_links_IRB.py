@@ -56,27 +56,12 @@ The PID -> BCU_name crosswalk
 The source files name basins ``AFG_1``, ``AFG_2``, ``CHN_1..3``,
 ``IND_1..6``, ``PAK_1..13`` -- not the ``1|AFGHAN_SOUTH``, ``12|PAKISTAN``
 naming already used by ``basins_by_region_simpl_IRB.csv`` (the delineation
-this project's Python model already relies on). No spatial geometry is
-available for the *existing* Python-side delineation to verify a match
-directly (its source shapefile lives on a private IIASA network drive, see
-``hydro_agg_spatial.R``), so the crosswalk below is an **inferred, ordinal
-mapping** -- PID numeric suffix order within each country, in the same
-per-country order as the existing BASIN_ID sequence -- not a
-spatially-verified one.
-
-Evidence for the mapping (checked before use, not assumed):
-
-- Basin count matches exactly: 24 in both schemes.
-- Per-country split matches exactly: AFG 2 / CHN 3 / IND 6 / PAK 13, both
-  sides.
-- The single "india_east"-tagged basin lands at the identical relative
-  position in both schemes: ``IND_4`` is the 4th of 6 India entries in the
-  source data; ``9|INDIA_EAST`` is the 4th of the six India rows
-  (6, 7, 8, **9**, 10, 11) in ``basins_by_region_simpl_IRB.csv``.
-
-If this is ever confirmed wrong (e.g. by finally getting the original
-delineation shapefile), only ``CROSSWALK`` below needs correcting --
-everything downstream of it is generic.
+this project's Python model already relies on). The crosswalk was first
+inferred ordinally (PID suffix order within each country) and found wrong
+for 16 of 24 basins once the delineation shapefile behind the hydrology
+data was located; it is now spatially verified -- see
+:mod:`_pid_crosswalk`. Only ``CROSSWALK`` there needs correcting if the
+delineation ever changes -- everything downstream of it is generic.
 
 Usage
 -----

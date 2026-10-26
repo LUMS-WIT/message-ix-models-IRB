@@ -232,6 +232,7 @@ from .common import (
     CROPS,
     IRRIGATION_METHODS,
     basins_with_crop_data,
+    country_group_of,
     crop_land_commodity,
     crop_yield_commodity,
     irr_tech_name,
@@ -239,7 +240,9 @@ from .common import (
     read_crop_irrigation_water_annual,
     read_historical_irrigation_withdrawals,
     read_irr_tech_data,
+    read_irrigation_demand_growth,
 )
+from .irrigation_source import IRRIGATION_WATER, irrigation_source_enabled
 from .rainfed import GENERIC_LAND_COMMODITY
 
 log = logging.getLogger(__name__)
@@ -315,6 +318,12 @@ def add_irrigation_techs(context: "Context") -> dict[str, pd.DataFrame]:
     df_cap = df_input[df_input["par"] == "crop_irr_land_2015"]
     df_water_all = read_crop_irrigation_water_annual(context)
     df_tech = read_irr_tech_data()
+
+    # With the irrigation source layer on (irrigation_source.py), water comes
+    # from the diversion technologies at the farm gate instead of straight
+    # from the river, and the floor is carried by those diversions.
+    source_layer = irrigation_source_enabled(context)
+    water_in = IRRIGATION_WATER if source_layer else ("surfacewater_basin", "water_avail_basin")
 
     inp_frames, out_frames = [], []
     tl_frames, cons_frames, cf_frames = [], [], []
@@ -430,7 +439,7 @@ def add_irrigation_techs(context: "Context") -> dict[str, pd.DataFrame]:
                     "input", technology=tech, node_loc=base["node_loc"],
                     year_vtg=base["year_vtg"], year_act=base["year_act"],
                     value=base["withdrawal_mcm_per_mha"], unit="MCM",
-                    level="water_avail_basin", commodity="surfacewater_basin", mode="M1",
+                    commodity=water_in[0], level=water_in[1], mode="M1",
                 )
                 .pipe(broadcast, time=sub_time)
                 .pipe(same_node)
@@ -580,13 +589,37 @@ def add_irrigation_techs(context: "Context") -> dict[str, pd.DataFrame]:
         hist_total = hist.groupby("node", as_index=False)["value"].sum()
         hist_lookup = hist_total.set_index("node")["value"]
 
+        # Demand-growth index (population/GDP, GCAM-AgLU-style), per IRB
+        # country group/year -- see build_irrigation_demand_growth_IRB.py.
+        # Scales the historical floor up over the horizon instead of
+        # leaving it pinned at the ~2015 historical value for every future
+        # year. 1.0 at the growth data's own base year (2015) and wherever
+        # a group/year has no data (missing growth CSV, or a year outside
+        # its range), so the floor degrades to today's flat behavior rather
+        # than blocking the build.
+        growth_df = read_irrigation_demand_growth()
+        if growth_df.empty:
+            growth_lookup: pd.Series = pd.Series(dtype=float)
+            growth_years_by_region: dict = {}
+        else:
+            growth_lookup = growth_df.set_index(["region", "year"])["demand_index"]
+            growth_years_by_region = growth_df.groupby("region")["year"].apply(list).to_dict()
+
+        def _growth_index(node: str, year: int) -> float:
+            region = country_group_of(node)
+            years = growth_years_by_region.get(region)
+            if not years:
+                return 1.0
+            match = year if year in years else _nearest_year(years, year)
+            return float(growth_lookup.get((region, match), 1.0))
+
         rel_act_frames, rel_lo_frames = [], []
         for node in sorted(set(all_withdrawal["node"]) & set(hist_lookup.index)):
-            # DEBUG: relax every basin's historical-withdrawal floor by 40%
-            # (relation_lower = 60% of the real historical value) -- testing
-            # whether a lower floor is reachable without SLACK_RELATION_BOUND_LO.
-            floor = float(hist_lookup[node]) * 0.6
-            if floor <= 0:
+            # Full historical sw+gw diversion at the base year (the earlier
+            # DEBUG 0.6 relaxation is removed); the growth index then
+            # scales it per year below.
+            base_floor = float(hist_lookup[node])
+            if base_floor <= 0:
                 continue
             node_rows = all_withdrawal[all_withdrawal["node"] == node]
             if node_rows.empty:
@@ -607,6 +640,7 @@ def add_irrigation_techs(context: "Context") -> dict[str, pd.DataFrame]:
                 )
             )
             for year in sorted(node_rows["year_act"].unique()):
+                floor = base_floor * _growth_index(node, int(year))
                 rel_lo_frames.append(
                     make_df(
                         "relation_lower",
@@ -618,7 +652,9 @@ def add_irrigation_techs(context: "Context") -> dict[str, pd.DataFrame]:
                     )
                 )
 
-        if rel_act_frames:
+        # Source layer on: the floor's coefficients come from the diversion
+        # technologies (irrigation_source.py), not from the crop techs.
+        if rel_act_frames and not source_layer:
             results["relation_activity"] = _concat(rel_act_frames)
         if rel_lo_frames:
             results["relation_lower"] = _concat(rel_lo_frames)

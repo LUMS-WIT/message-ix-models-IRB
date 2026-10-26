@@ -1,4 +1,46 @@
-"""Prepare data for water use for cooling & energy technologies."""
+"""Prepare data for the generic, region-tier ``irrigation_<crop-category>``
+technologies used on the **global** (R11/R12/R14/...) MESSAGEix-GLOBIOM
+build path only.
+
+This is the older, coarser of the two irrigation mechanisms in this
+package -- **not** the one used for the Pakistan/IRB nexus build. It is
+only invoked via ``DATA_FUNCTIONS`` in :mod:`.data` (the global list); the
+IRB/country path (``DATA_FUNCTIONS_COUNTRY``) uses
+:mod:`.crops.irrigation_tech` instead, which is the real-data,
+basin-level, per-(method, crop) port of the legacy R+GAMS indus_ix model
+described in that module's own docstring. See that module for the
+mechanism actually exercised by the Pakistan build (real crop water
+requirements, method-specific efficiencies, irrigation losses routed to
+groundwater recharge, etc.) -- none of that applies here.
+
+Data model
+----------
+Three broad, GLOBIOM-aligned crop categories -- ``irrigation_cereal``,
+``irrigation_oilcrops``, ``irrigation_sugarcrops`` -- each a single
+technology per MESSAGE **region** (``node_loc = df_node["region"]``, e.g.
+``R12_PAK``), not per basin. Every basin belonging to a region collapses
+onto the same technology instance; there is no basin-level differentiation
+here (contrast :mod:`.crops.irrigation_tech`, which is basin-indexed).
+
+- **Input**: 1 unit of ``freshwater`` (level ``water_supply``) per unit of
+  activity, unscaled -- an arbitrary, uncalibrated ratio, not derived from
+  any real crop water requirement. An electricity input (commented out,
+  never activated -- see the Diaz et al. 2011 reference and the dead code
+  below it) was evidently planned but never wired in, so as it stands this
+  technology draws water only, no pumping energy.
+- **Output**: the same ``freshwater`` commodity, just re-leveled per crop
+  category (``irr_cereal`` / ``irr_sugarcrops`` / ``irr_oilcrops``) --
+  effectively relabeling water into a category-specific "irrigation final
+  demand" slot for GLOBIOM's crop-demand linkage to consume downstream.
+  Unlike :mod:`.crops.irrigation_tech`, there is no representation of
+  irrigation losses or return flow to groundwater here.
+
+In short: this is a coarse, demand-side placeholder sized for a global,
+GLOBIOM-linked model where basin-level hydrology isn't the point. Do not
+use it as a reference for how irrigation water demand is actually balanced
+in the Pakistan nexus build -- for that, read
+:mod:`.crops.irrigation_tech`.
+"""
 
 import pandas as pd
 from message_ix import make_df

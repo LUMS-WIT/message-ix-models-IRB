@@ -377,6 +377,77 @@ def get_spec(context: Context) -> Mapping[str, ScenarioInfo]:
             # irrigation_tech.py module docstring) -- one per basin.
             add.set["relation"].extend(irrigation_relation_names(context))
 
+        # food_import_<crop>: the backstop that keeps add_crop_demand()'s
+        # hard demand from being able to break the solve outright -- see
+        # food_demand.py's module docstring ("a backstop, not an optional
+        # extra"). Registered whenever the crop technologies above are
+        # (same basins-with-crop-data gate), not conditioned on them
+        # specifically since food_demand.py has its own independent guard.
+        from .data.crops.food_demand import food_import_technology_names
+
+        food_import_techs = food_import_technology_names(context)
+        if food_import_techs:
+            add.set["technology"].extend(food_import_techs)
+            add.set["type_tec"].append("water_crops")
+            add.set["cat_tec"].extend([["water_crops", t] for t in food_import_techs])
+            # food_demand.py's var_cost uses "USD/kt" -- unlike the other
+            # cost units this module relies on (USD/Mha, USD/MCM, ...),
+            # nothing else in the base model or the rest of the water build
+            # ever registers this one on the Platform, so a real build fails
+            # with "The unit 'USD/kt' does not exist in the database!" the
+            # first time add_par_data() tries to commit var_cost. Registering
+            # it here (apply_spec() adds every spec["add"].set["unit"] entry
+            # to the Platform before calling the data callback, see
+            # model/build.py's apply_spec()) is the same mechanism already
+            # used for every other new set element this module introduces --
+            # not a one-off mp.add_unit() workaround.
+            add.set["unit"].append("USD/kt")
+
+        # bottom_up_crop_water_<basin>: OPT-IN (context.bottom_up_water_demand_enabled,
+        # default False -- a no-op for every existing build) third water-
+        # demand relation, alongside (not replacing) the historical-
+        # withdrawal floor above -- see
+        # crops/bottom_up_water_demand.py's module docstring.
+        from .data.crops.bottom_up_water_demand import bottom_up_relation_names
+
+        bottom_up_relations = bottom_up_relation_names(context)
+        if bottom_up_relations:
+            add.set["relation"].extend(bottom_up_relations)
+
+        # Irrigation sw/gw diversion layer: OPT-IN (context.irrigation_source_layer)
+        # -- see crops/irrigation_source.py's module docstring.
+        from .data.crops.irrigation_source import (
+            FOSSIL_MODE,
+            irrigation_source_commodity_names,
+            irrigation_source_level_names,
+            irrigation_source_technology_names,
+        )
+
+        source_techs = irrigation_source_technology_names(context)
+        if source_techs:
+            add.set["technology"].extend(source_techs)
+            add.set["type_tec"].append("water_crops")
+            add.set["cat_tec"].extend([["water_crops", t] for t in source_techs])
+            add.set["commodity"].extend(irrigation_source_commodity_names())
+            add.set["level"].extend(irrigation_source_level_names())
+            add.set["mode"].append(FOSSIL_MODE)
+            add.set["unit"].append("USD/MCM")
+
+        # Fossil groundwater accounting/limit: OPT-IN (context.fossil_gw_accounting
+        # or context.fossil_gw_limit) -- see fossil_groundwater.py.
+        from .data import fossil_groundwater as _fgw
+
+        fossil_techs = _fgw.fossil_gw_technology_names(context)
+        if fossil_techs:
+            add.set["emission"].append(_fgw.EMISSION)
+            add.set["type_emission"].append(_fgw.TYPE_EMISSION)
+            add.set["cat_emission"].append([_fgw.TYPE_EMISSION, _fgw.EMISSION])
+            add.set["type_tec"].append(_fgw.TYPE_TEC)
+            add.set["cat_tec"].extend([[_fgw.TYPE_TEC, t] for t in fossil_techs])
+            for type_year in _fgw.fossil_gw_type_years(context):
+                add.set["type_year"].append(type_year)
+                add.set["cat_year"].append([type_year, int(type_year)])
+
         # Reservoir/dam storage technologies (real-data port of the legacy
         # R model's storage_capacity.r, using MESSAGEix's native storage
         # formulation) -- data-driven per basin like the network/crop

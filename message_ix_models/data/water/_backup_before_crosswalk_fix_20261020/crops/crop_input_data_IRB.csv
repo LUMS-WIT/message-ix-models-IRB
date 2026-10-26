@@ -1,0 +1,752 @@
+crop,par,node,time,unit,value
+cotton,irrigation_yield,1|AFGHAN_SOUTH,year,kton DW/ Mha,205.825276135174
+fodder,irrigation_yield,1|AFGHAN_SOUTH,year,kton DW/ Mha,3076.57247769454
+fruit,irrigation_yield,1|AFGHAN_SOUTH,year,kton DW/ Mha,2156.62341775617
+maize,irrigation_yield,1|AFGHAN_SOUTH,year,kton DW/ Mha,1669.78637116699
+pulses,irrigation_yield,1|AFGHAN_SOUTH,year,kton DW/ Mha,523.160069018555
+rice,irrigation_yield,1|AFGHAN_SOUTH,year,kton DW/ Mha,1208.90908278809
+sugarcane,irrigation_yield,1|AFGHAN_SOUTH,year,kton DW/ Mha,2056.97753237587
+vegetables,irrigation_yield,1|AFGHAN_SOUTH,year,kton DW/ Mha,1784.64566052246
+wheat,irrigation_yield,1|AFGHAN_SOUTH,year,kton DW/ Mha,1446.02675327122
+cotton,irrigation_yield,2|AFGHAN_NORTH,year,kton DW/ Mha,203.777316443106
+fodder,irrigation_yield,2|AFGHAN_NORTH,year,kton DW/ Mha,2772.21102634922
+fruit,irrigation_yield,2|AFGHAN_NORTH,year,kton DW/ Mha,2100.23201044519
+maize,irrigation_yield,2|AFGHAN_NORTH,year,kton DW/ Mha,1514.77676608887
+pulses,irrigation_yield,2|AFGHAN_NORTH,year,kton DW/ Mha,489.375813427734
+rice,irrigation_yield,2|AFGHAN_NORTH,year,kton DW/ Mha,1187.52820334473
+sugarcane,irrigation_yield,2|AFGHAN_NORTH,year,kton DW/ Mha,2937.91617823648
+vegetables,irrigation_yield,2|AFGHAN_NORTH,year,kton DW/ Mha,1506.38491889648
+wheat,irrigation_yield,2|AFGHAN_NORTH,year,kton DW/ Mha,1240.26001111327
+pulses,irrigation_yield,3|CHINA,year,kton DW/ Mha,562.524202883323
+wheat,irrigation_yield,3|CHINA,year,kton DW/ Mha,718.61165025837
+cotton,irrigation_yield,6|INDIA_WEST,year,kton DW/ Mha,215.367678623654
+fodder,irrigation_yield,6|INDIA_WEST,year,kton DW/ Mha,1746.13328879735
+fruit,irrigation_yield,6|INDIA_WEST,year,kton DW/ Mha,2083.81794521714
+maize,irrigation_yield,6|INDIA_WEST,year,kton DW/ Mha,3539.54238239429
+pulses,irrigation_yield,6|INDIA_WEST,year,kton DW/ Mha,1214.71591896922
+rice,irrigation_yield,6|INDIA_WEST,year,kton DW/ Mha,2666.88014668697
+sugarcane,irrigation_yield,6|INDIA_WEST,year,kton DW/ Mha,2482.70456841277
+vegetables,irrigation_yield,6|INDIA_WEST,year,kton DW/ Mha,3787.43431287819
+wheat,irrigation_yield,6|INDIA_WEST,year,kton DW/ Mha,2725.3369420329
+cotton,irrigation_yield,7|INDIA_WEST,year,kton DW/ Mha,303.343931262697
+fodder,irrigation_yield,7|INDIA_WEST,year,kton DW/ Mha,761.629726757813
+fruit,irrigation_yield,7|INDIA_WEST,year,kton DW/ Mha,2095.3767511898
+maize,irrigation_yield,7|INDIA_WEST,year,kton DW/ Mha,3081.53026134142
+pulses,irrigation_yield,7|INDIA_WEST,year,kton DW/ Mha,494.419190625
+rice,irrigation_yield,7|INDIA_WEST,year,kton DW/ Mha,2879.55384091719
+sugarcane,irrigation_yield,7|INDIA_WEST,year,kton DW/ Mha,3404.13103196456
+vegetables,irrigation_yield,7|INDIA_WEST,year,kton DW/ Mha,1538.90483291016
+wheat,irrigation_yield,7|INDIA_WEST,year,kton DW/ Mha,1563.26421056724
+cotton,irrigation_yield,8|INDIA_WEST,year,kton DW/ Mha,513.70150670059
+fodder,irrigation_yield,8|INDIA_WEST,year,kton DW/ Mha,848.071044140625
+fruit,irrigation_yield,8|INDIA_WEST,year,kton DW/ Mha,1907.54135276098
+maize,irrigation_yield,8|INDIA_WEST,year,kton DW/ Mha,4345.14898065828
+pulses,irrigation_yield,8|INDIA_WEST,year,kton DW/ Mha,473.785162426758
+rice,irrigation_yield,8|INDIA_WEST,year,kton DW/ Mha,1144.44889519043
+sugarcane,irrigation_yield,8|INDIA_WEST,year,kton DW/ Mha,8174.23165226559
+vegetables,irrigation_yield,8|INDIA_WEST,year,kton DW/ Mha,1378.47008671875
+wheat,irrigation_yield,8|INDIA_WEST,year,kton DW/ Mha,1380.07762264121
+cotton,irrigation_yield,9|INDIA_EAST,year,kton DW/ Mha,1002.21015837974
+fodder,irrigation_yield,9|INDIA_EAST,year,kton DW/ Mha,1013.45323710937
+fruit,irrigation_yield,9|INDIA_EAST,year,kton DW/ Mha,1957.25511325592
+maize,irrigation_yield,9|INDIA_EAST,year,kton DW/ Mha,4002.55262346775
+pulses,irrigation_yield,9|INDIA_EAST,year,kton DW/ Mha,428.69323762207
+rice,irrigation_yield,9|INDIA_EAST,year,kton DW/ Mha,3350.83837718996
+sugarcane,irrigation_yield,9|INDIA_EAST,year,kton DW/ Mha,12364.6621869653
+vegetables,irrigation_yield,9|INDIA_EAST,year,kton DW/ Mha,2679.37786769039
+wheat,irrigation_yield,9|INDIA_EAST,year,kton DW/ Mha,3409.31580408453
+fodder,irrigation_yield,10|INDIA_WEST,year,kton DW/ Mha,819.570215022345
+maize,irrigation_yield,10|INDIA_WEST,year,kton DW/ Mha,896.439636111456
+pulses,irrigation_yield,10|INDIA_WEST,year,kton DW/ Mha,677.447497633663
+vegetables,irrigation_yield,10|INDIA_WEST,year,kton DW/ Mha,1914.94360289286
+wheat,irrigation_yield,10|INDIA_WEST,year,kton DW/ Mha,1495.30756798614
+pulses,irrigation_yield,11|INDIA_WEST,year,kton DW/ Mha,671.949067933031
+vegetables,irrigation_yield,11|INDIA_WEST,year,kton DW/ Mha,1543.09808687468
+wheat,irrigation_yield,11|INDIA_WEST,year,kton DW/ Mha,1392.7583838371
+cotton,irrigation_yield,12|PAKISTAN,year,kton DW/ Mha,762.328398121684
+fodder,irrigation_yield,12|PAKISTAN,year,kton DW/ Mha,2161.13520844218
+fruit,irrigation_yield,12|PAKISTAN,year,kton DW/ Mha,1511.43554049214
+maize,irrigation_yield,12|PAKISTAN,year,kton DW/ Mha,3413.92401487686
+pulses,irrigation_yield,12|PAKISTAN,year,kton DW/ Mha,447.350636425781
+rice,irrigation_yield,12|PAKISTAN,year,kton DW/ Mha,1785.74191352407
+sugarcane,irrigation_yield,12|PAKISTAN,year,kton DW/ Mha,8107.20484264581
+vegetables,irrigation_yield,12|PAKISTAN,year,kton DW/ Mha,1252.95043601074
+wheat,irrigation_yield,12|PAKISTAN,year,kton DW/ Mha,1443.48588612625
+cotton,irrigation_yield,21|PAKISTAN,year,kton DW/ Mha,607.294088029403
+fodder,irrigation_yield,21|PAKISTAN,year,kton DW/ Mha,1077.9523842041
+maize,irrigation_yield,21|PAKISTAN,year,kton DW/ Mha,1802.57458515511
+pulses,irrigation_yield,21|PAKISTAN,year,kton DW/ Mha,402.211102368164
+rice,irrigation_yield,21|PAKISTAN,year,kton DW/ Mha,1559.53858533416
+sugarcane,irrigation_yield,21|PAKISTAN,year,kton DW/ Mha,7408.61381548706
+vegetables,irrigation_yield,21|PAKISTAN,year,kton DW/ Mha,1100.44450810547
+wheat,irrigation_yield,21|PAKISTAN,year,kton DW/ Mha,1089.67700011653
+fodder,irrigation_yield,22|PAKISTAN,year,kton DW/ Mha,1290.78420961773
+maize,irrigation_yield,22|PAKISTAN,year,kton DW/ Mha,1454.29835389977
+pulses,irrigation_yield,22|PAKISTAN,year,kton DW/ Mha,759.007775170057
+vegetables,irrigation_yield,22|PAKISTAN,year,kton DW/ Mha,1286.34089047964
+wheat,irrigation_yield,22|PAKISTAN,year,kton DW/ Mha,1480.95826872837
+cotton,irrigation_yield,23|PAKISTAN,year,kton DW/ Mha,840.739723941964
+fodder,irrigation_yield,23|PAKISTAN,year,kton DW/ Mha,2885.25110914926
+fruit,irrigation_yield,23|PAKISTAN,year,kton DW/ Mha,880.205296508789
+maize,irrigation_yield,23|PAKISTAN,year,kton DW/ Mha,3856.01243193557
+pulses,irrigation_yield,23|PAKISTAN,year,kton DW/ Mha,476.590780151367
+rice,irrigation_yield,23|PAKISTAN,year,kton DW/ Mha,1973.91949194001
+sugarcane,irrigation_yield,23|PAKISTAN,year,kton DW/ Mha,7965.90479855569
+vegetables,irrigation_yield,23|PAKISTAN,year,kton DW/ Mha,1463.81247575684
+wheat,irrigation_yield,23|PAKISTAN,year,kton DW/ Mha,2098.76377643613
+fodder,irrigation_yield,24|PAKISTAN,year,kton DW/ Mha,1572.0463110594
+maize,irrigation_yield,24|PAKISTAN,year,kton DW/ Mha,1897.07510601133
+pulses,irrigation_yield,24|PAKISTAN,year,kton DW/ Mha,827.049787427081
+vegetables,irrigation_yield,24|PAKISTAN,year,kton DW/ Mha,2108.35493102794
+wheat,irrigation_yield,24|PAKISTAN,year,kton DW/ Mha,1911.28066389498
+cotton,irrigation_yield,13|PAKISTAN,year,kton DW/ Mha,870.649082216615
+fodder,irrigation_yield,13|PAKISTAN,year,kton DW/ Mha,2650.82470174655
+fruit,irrigation_yield,13|PAKISTAN,year,kton DW/ Mha,845.0419921875
+maize,irrigation_yield,13|PAKISTAN,year,kton DW/ Mha,2398.75221867129
+pulses,irrigation_yield,13|PAKISTAN,year,kton DW/ Mha,433.607313427734
+rice,irrigation_yield,13|PAKISTAN,year,kton DW/ Mha,1415.09188165573
+sugarcane,irrigation_yield,13|PAKISTAN,year,kton DW/ Mha,9305.54485293316
+vegetables,irrigation_yield,13|PAKISTAN,year,kton DW/ Mha,1128.30433945313
+wheat,irrigation_yield,13|PAKISTAN,year,kton DW/ Mha,1395.65055754292
+cotton,irrigation_yield,14|PAKISTAN,year,kton DW/ Mha,831.703092830268
+fodder,irrigation_yield,14|PAKISTAN,year,kton DW/ Mha,2724.01554335442
+maize,irrigation_yield,14|PAKISTAN,year,kton DW/ Mha,1556.99165039063
+pulses,irrigation_yield,14|PAKISTAN,year,kton DW/ Mha,412.773255175781
+rice,irrigation_yield,14|PAKISTAN,year,kton DW/ Mha,1393.44329826955
+sugarcane,irrigation_yield,14|PAKISTAN,year,kton DW/ Mha,9396.74225642969
+vegetables,irrigation_yield,14|PAKISTAN,year,kton DW/ Mha,1054.64364147949
+wheat,irrigation_yield,14|PAKISTAN,year,kton DW/ Mha,1344.34270759882
+cotton,irrigation_yield,15|PAKISTAN,year,kton DW/ Mha,1692.67561626525
+fodder,irrigation_yield,15|PAKISTAN,year,kton DW/ Mha,2787.15288664724
+maize,irrigation_yield,15|PAKISTAN,year,kton DW/ Mha,5811.29234996551
+pulses,irrigation_yield,15|PAKISTAN,year,kton DW/ Mha,428.195289331055
+rice,irrigation_yield,15|PAKISTAN,year,kton DW/ Mha,3736.47813728919
+sugarcane,irrigation_yield,15|PAKISTAN,year,kton DW/ Mha,21999.6799463111
+vegetables,irrigation_yield,15|PAKISTAN,year,kton DW/ Mha,1596.52221534357
+wheat,irrigation_yield,15|PAKISTAN,year,kton DW/ Mha,2422.78240752232
+cotton,irrigation_yield,16|PAKISTAN,year,kton DW/ Mha,879.370402535598
+fodder,irrigation_yield,16|PAKISTAN,year,kton DW/ Mha,2814.63637067808
+fruit,irrigation_yield,16|PAKISTAN,year,kton DW/ Mha,908.246612548828
+maize,irrigation_yield,16|PAKISTAN,year,kton DW/ Mha,2618.47687767387
+pulses,irrigation_yield,16|PAKISTAN,year,kton DW/ Mha,420.411879492188
+rice,irrigation_yield,16|PAKISTAN,year,kton DW/ Mha,1863.88210872869
+sugarcane,irrigation_yield,16|PAKISTAN,year,kton DW/ Mha,9985.52186009242
+vegetables,irrigation_yield,16|PAKISTAN,year,kton DW/ Mha,1357.92438925781
+wheat,irrigation_yield,16|PAKISTAN,year,kton DW/ Mha,1344.30275140909
+cotton,irrigation_yield,17|PAKISTAN,year,kton DW/ Mha,365.729686838213
+fodder,irrigation_yield,17|PAKISTAN,year,kton DW/ Mha,2956.28707427472
+fruit,irrigation_yield,17|PAKISTAN,year,kton DW/ Mha,927.121429907226
+maize,irrigation_yield,17|PAKISTAN,year,kton DW/ Mha,1684.85066850586
+pulses,irrigation_yield,17|PAKISTAN,year,kton DW/ Mha,456.427487329101
+rice,irrigation_yield,17|PAKISTAN,year,kton DW/ Mha,1176.45621328125
+sugarcane,irrigation_yield,17|PAKISTAN,year,kton DW/ Mha,5904.60453964608
+vegetables,irrigation_yield,17|PAKISTAN,year,kton DW/ Mha,1527.9002611084
+wheat,irrigation_yield,17|PAKISTAN,year,kton DW/ Mha,768.423967602539
+cotton,irrigation_yield,18|PAKISTAN,year,kton DW/ Mha,845.27402357503
+fodder,irrigation_yield,18|PAKISTAN,year,kton DW/ Mha,2599.15956413639
+fruit,irrigation_yield,18|PAKISTAN,year,kton DW/ Mha,825.746148852539
+maize,irrigation_yield,18|PAKISTAN,year,kton DW/ Mha,3144.70493927584
+pulses,irrigation_yield,18|PAKISTAN,year,kton DW/ Mha,471.460567236328
+rice,irrigation_yield,18|PAKISTAN,year,kton DW/ Mha,2188.20720770945
+sugarcane,irrigation_yield,18|PAKISTAN,year,kton DW/ Mha,7843.72294296184
+vegetables,irrigation_yield,18|PAKISTAN,year,kton DW/ Mha,1463.50184985352
+wheat,irrigation_yield,18|PAKISTAN,year,kton DW/ Mha,1945.61005653456
+cotton,irrigation_yield,19|PAKISTAN,year,kton DW/ Mha,621.700466854424
+fodder,irrigation_yield,19|PAKISTAN,year,kton DW/ Mha,1893.45388978016
+fruit,irrigation_yield,19|PAKISTAN,year,kton DW/ Mha,826.120063916015
+maize,irrigation_yield,19|PAKISTAN,year,kton DW/ Mha,4241.53121111782
+pulses,irrigation_yield,19|PAKISTAN,year,kton DW/ Mha,446.076096679687
+rice,irrigation_yield,19|PAKISTAN,year,kton DW/ Mha,1154.50078359375
+sugarcane,irrigation_yield,19|PAKISTAN,year,kton DW/ Mha,5831.20167941933
+vegetables,irrigation_yield,19|PAKISTAN,year,kton DW/ Mha,1361.23347260742
+wheat,irrigation_yield,19|PAKISTAN,year,kton DW/ Mha,2524.68444950485
+cotton,irrigation_yield,20|PAKISTAN,year,kton DW/ Mha,454.707351225634
+fodder,irrigation_yield,20|PAKISTAN,year,kton DW/ Mha,1069.20299597168
+maize,irrigation_yield,20|PAKISTAN,year,kton DW/ Mha,1564.24407912598
+pulses,irrigation_yield,20|PAKISTAN,year,kton DW/ Mha,425.177841577149
+rice,irrigation_yield,20|PAKISTAN,year,kton DW/ Mha,1119.84135424805
+sugarcane,irrigation_yield,20|PAKISTAN,year,kton DW/ Mha,9356.62667283947
+vegetables,irrigation_yield,20|PAKISTAN,year,kton DW/ Mha,1099.57104294434
+wheat,irrigation_yield,20|PAKISTAN,year,kton DW/ Mha,1369.72234229012
+cotton,rain-fed_yield,1|AFGHAN_SOUTH,year,kton DW/ Mha,15.941501076805
+fodder,rain-fed_yield,1|AFGHAN_SOUTH,year,kton DW/ Mha,935.001476219009
+fruit,rain-fed_yield,1|AFGHAN_SOUTH,year,kton DW/ Mha,936.43377014704
+maize,rain-fed_yield,1|AFGHAN_SOUTH,year,kton DW/ Mha,51.09375
+pulses,rain-fed_yield,1|AFGHAN_SOUTH,year,kton DW/ Mha,19.5
+vegetables,rain-fed_yield,1|AFGHAN_SOUTH,year,kton DW/ Mha,60.25
+wheat,rain-fed_yield,1|AFGHAN_SOUTH,year,kton DW/ Mha,87.2554912846039
+cotton,rain-fed_yield,2|AFGHAN_NORTH,year,kton DW/ Mha,15.0665372702719
+fodder,rain-fed_yield,2|AFGHAN_NORTH,year,kton DW/ Mha,830.730478258311
+fruit,rain-fed_yield,2|AFGHAN_NORTH,year,kton DW/ Mha,749.94910071733
+maize,rain-fed_yield,2|AFGHAN_NORTH,year,kton DW/ Mha,36.453125
+pulses,rain-fed_yield,2|AFGHAN_NORTH,year,kton DW/ Mha,19.65625
+rice,rain-fed_yield,2|AFGHAN_NORTH,year,kton DW/ Mha,13.515625
+vegetables,rain-fed_yield,2|AFGHAN_NORTH,year,kton DW/ Mha,57.859375
+wheat,rain-fed_yield,2|AFGHAN_NORTH,year,kton DW/ Mha,86.1890707940283
+pulses,rain-fed_yield,3|CHINA,year,kton DW/ Mha,362.656822577594
+wheat,rain-fed_yield,3|CHINA,year,kton DW/ Mha,463.20385632541
+cotton,rain-fed_yield,6|INDIA_WEST,year,kton DW/ Mha,137.500217091031
+fodder,rain-fed_yield,6|INDIA_WEST,year,kton DW/ Mha,1089.68922044642
+fruit,rain-fed_yield,6|INDIA_WEST,year,kton DW/ Mha,1324.8718834292
+maize,rain-fed_yield,6|INDIA_WEST,year,kton DW/ Mha,2214.89933030802
+pulses,rain-fed_yield,6|INDIA_WEST,year,kton DW/ Mha,752.813688573393
+rice,rain-fed_yield,6|INDIA_WEST,year,kton DW/ Mha,1177.34560884195
+sugarcane,rain-fed_yield,6|INDIA_WEST,year,kton DW/ Mha,1417.68452996565
+vegetables,rain-fed_yield,6|INDIA_WEST,year,kton DW/ Mha,2234.66498651486
+wheat,rain-fed_yield,6|INDIA_WEST,year,kton DW/ Mha,1689.53391750604
+cotton,rain-fed_yield,7|INDIA_WEST,year,kton DW/ Mha,185.338834287285
+fodder,rain-fed_yield,7|INDIA_WEST,year,kton DW/ Mha,63.75
+fruit,rain-fed_yield,7|INDIA_WEST,year,kton DW/ Mha,1261.85095059581
+maize,rain-fed_yield,7|INDIA_WEST,year,kton DW/ Mha,729.259890951638
+pulses,rain-fed_yield,7|INDIA_WEST,year,kton DW/ Mha,41.765625
+rice,rain-fed_yield,7|INDIA_WEST,year,kton DW/ Mha,851.928428393178
+sugarcane,rain-fed_yield,7|INDIA_WEST,year,kton DW/ Mha,1489.01276758162
+vegetables,rain-fed_yield,7|INDIA_WEST,year,kton DW/ Mha,114.546875
+wheat,rain-fed_yield,7|INDIA_WEST,year,kton DW/ Mha,261.397828697494
+cotton,rain-fed_yield,8|INDIA_WEST,year,kton DW/ Mha,338.316649516248
+fodder,rain-fed_yield,8|INDIA_WEST,year,kton DW/ Mha,67.90625
+fruit,rain-fed_yield,8|INDIA_WEST,year,kton DW/ Mha,490.365990142608
+maize,rain-fed_yield,8|INDIA_WEST,year,kton DW/ Mha,1504.44569983946
+pulses,rain-fed_yield,8|INDIA_WEST,year,kton DW/ Mha,39.015625
+rice,rain-fed_yield,8|INDIA_WEST,year,kton DW/ Mha,47.484375
+sugarcane,rain-fed_yield,8|INDIA_WEST,year,kton DW/ Mha,4309.35079261125
+vegetables,rain-fed_yield,8|INDIA_WEST,year,kton DW/ Mha,98.875
+wheat,rain-fed_yield,8|INDIA_WEST,year,kton DW/ Mha,206.033499940754
+cotton,rain-fed_yield,9|INDIA_EAST,year,kton DW/ Mha,1125.20472960764
+fodder,rain-fed_yield,9|INDIA_EAST,year,kton DW/ Mha,72.703125
+fruit,rain-fed_yield,9|INDIA_EAST,year,kton DW/ Mha,523.203087850709
+maize,rain-fed_yield,9|INDIA_EAST,year,kton DW/ Mha,985.335185729323
+pulses,rain-fed_yield,9|INDIA_EAST,year,kton DW/ Mha,30.9375
+rice,rain-fed_yield,9|INDIA_EAST,year,kton DW/ Mha,595.914884919625
+sugarcane,rain-fed_yield,9|INDIA_EAST,year,kton DW/ Mha,8187.28167565464
+vegetables,rain-fed_yield,9|INDIA_EAST,year,kton DW/ Mha,363.978843548555
+wheat,rain-fed_yield,9|INDIA_EAST,year,kton DW/ Mha,1651.69031248369
+fodder,rain-fed_yield,10|INDIA_WEST,year,kton DW/ Mha,512.761226235302
+maize,rain-fed_yield,10|INDIA_WEST,year,kton DW/ Mha,572.344653641415
+pulses,rain-fed_yield,10|INDIA_WEST,year,kton DW/ Mha,426.823590553408
+vegetables,rain-fed_yield,10|INDIA_WEST,year,kton DW/ Mha,1079.9496217358
+wheat,rain-fed_yield,10|INDIA_WEST,year,kton DW/ Mha,925.261877508394
+pulses,rain-fed_yield,11|INDIA_WEST,year,kton DW/ Mha,395.313124136713
+vegetables,rain-fed_yield,11|INDIA_WEST,year,kton DW/ Mha,852.214887178784
+wheat,rain-fed_yield,11|INDIA_WEST,year,kton DW/ Mha,862.240944675005
+cotton,rain-fed_yield,12|PAKISTAN,year,kton DW/ Mha,650.494885571297
+fodder,rain-fed_yield,12|PAKISTAN,year,kton DW/ Mha,1069.06418788276
+fruit,rain-fed_yield,12|PAKISTAN,year,kton DW/ Mha,303.367548395512
+maize,rain-fed_yield,12|PAKISTAN,year,kton DW/ Mha,671.058906197741
+pulses,rain-fed_yield,12|PAKISTAN,year,kton DW/ Mha,31.4375
+rice,rain-fed_yield,12|PAKISTAN,year,kton DW/ Mha,173.072372322112
+sugarcane,rain-fed_yield,12|PAKISTAN,year,kton DW/ Mha,5227.88197892561
+vegetables,rain-fed_yield,12|PAKISTAN,year,kton DW/ Mha,79.515625
+wheat,rain-fed_yield,12|PAKISTAN,year,kton DW/ Mha,255.652545235803
+cotton,rain-fed_yield,21|PAKISTAN,year,kton DW/ Mha,266.947009819803
+fodder,rain-fed_yield,21|PAKISTAN,year,kton DW/ Mha,39.34375
+maize,rain-fed_yield,21|PAKISTAN,year,kton DW/ Mha,48.4511310400304
+pulses,rain-fed_yield,21|PAKISTAN,year,kton DW/ Mha,12.640625
+vegetables,rain-fed_yield,21|PAKISTAN,year,kton DW/ Mha,28.140625
+wheat,rain-fed_yield,21|PAKISTAN,year,kton DW/ Mha,44.7435970417778
+fodder,rain-fed_yield,22|PAKISTAN,year,kton DW/ Mha,266.979588185085
+pulses,rain-fed_yield,22|PAKISTAN,year,kton DW/ Mha,162.135672653174
+vegetables,rain-fed_yield,22|PAKISTAN,year,kton DW/ Mha,367.240163147295
+wheat,rain-fed_yield,22|PAKISTAN,year,kton DW/ Mha,728.464691796857
+cotton,rain-fed_yield,23|PAKISTAN,year,kton DW/ Mha,467.670746795623
+fodder,rain-fed_yield,23|PAKISTAN,year,kton DW/ Mha,903.777468587921
+fruit,rain-fed_yield,23|PAKISTAN,year,kton DW/ Mha,55.734375
+maize,rain-fed_yield,23|PAKISTAN,year,kton DW/ Mha,447.649981683313
+pulses,rain-fed_yield,23|PAKISTAN,year,kton DW/ Mha,22.15625
+rice,rain-fed_yield,23|PAKISTAN,year,kton DW/ Mha,160.458740216698
+sugarcane,rain-fed_yield,23|PAKISTAN,year,kton DW/ Mha,4711.64156242428
+vegetables,rain-fed_yield,23|PAKISTAN,year,kton DW/ Mha,54.765625
+wheat,rain-fed_yield,23|PAKISTAN,year,kton DW/ Mha,384.282196284621
+fodder,rain-fed_yield,24|PAKISTAN,year,kton DW/ Mha,315.964040523764
+pulses,rain-fed_yield,24|PAKISTAN,year,kton DW/ Mha,147.239815801645
+vegetables,rain-fed_yield,24|PAKISTAN,year,kton DW/ Mha,495.287240313317
+wheat,rain-fed_yield,24|PAKISTAN,year,kton DW/ Mha,723.881351227156
+cotton,rain-fed_yield,13|PAKISTAN,year,kton DW/ Mha,721.632640623777
+fodder,rain-fed_yield,13|PAKISTAN,year,kton DW/ Mha,1233.77798960639
+fruit,rain-fed_yield,13|PAKISTAN,year,kton DW/ Mha,69.609375
+maize,rain-fed_yield,13|PAKISTAN,year,kton DW/ Mha,229.426380615428
+pulses,rain-fed_yield,13|PAKISTAN,year,kton DW/ Mha,26.65625
+rice,rain-fed_yield,13|PAKISTAN,year,kton DW/ Mha,57.8831027805663
+sugarcane,rain-fed_yield,13|PAKISTAN,year,kton DW/ Mha,5363.87589080676
+vegetables,rain-fed_yield,13|PAKISTAN,year,kton DW/ Mha,51.296875
+wheat,rain-fed_yield,13|PAKISTAN,year,kton DW/ Mha,192.824252097045
+cotton,rain-fed_yield,14|PAKISTAN,year,kton DW/ Mha,464.203608564218
+fodder,rain-fed_yield,14|PAKISTAN,year,kton DW/ Mha,780.027273205993
+maize,rain-fed_yield,14|PAKISTAN,year,kton DW/ Mha,25.796875
+pulses,rain-fed_yield,14|PAKISTAN,year,kton DW/ Mha,12.21875
+vegetables,rain-fed_yield,14|PAKISTAN,year,kton DW/ Mha,23.40625
+wheat,rain-fed_yield,14|PAKISTAN,year,kton DW/ Mha,91.5344073930797
+cotton,rain-fed_yield,15|PAKISTAN,year,kton DW/ Mha,987.494325406518
+fodder,rain-fed_yield,15|PAKISTAN,year,kton DW/ Mha,358.073482007892
+maize,rain-fed_yield,15|PAKISTAN,year,kton DW/ Mha,289.478536827969
+pulses,rain-fed_yield,15|PAKISTAN,year,kton DW/ Mha,5.171875
+cotton,rain-fed_yield,16|PAKISTAN,year,kton DW/ Mha,494.050756864029
+fodder,rain-fed_yield,16|PAKISTAN,year,kton DW/ Mha,572.917571212628
+maize,rain-fed_yield,16|PAKISTAN,year,kton DW/ Mha,79.6578253408563
+pulses,rain-fed_yield,16|PAKISTAN,year,kton DW/ Mha,11.515625
+vegetables,rain-fed_yield,16|PAKISTAN,year,kton DW/ Mha,35.015625
+wheat,rain-fed_yield,16|PAKISTAN,year,kton DW/ Mha,51.8671724913115
+cotton,rain-fed_yield,17|PAKISTAN,year,kton DW/ Mha,34.2473221849164
+fodder,rain-fed_yield,17|PAKISTAN,year,kton DW/ Mha,348.620342082884
+maize,rain-fed_yield,17|PAKISTAN,year,kton DW/ Mha,13.21875
+pulses,rain-fed_yield,17|PAKISTAN,year,kton DW/ Mha,6.03125
+vegetables,rain-fed_yield,17|PAKISTAN,year,kton DW/ Mha,21.671875
+wheat,rain-fed_yield,17|PAKISTAN,year,kton DW/ Mha,20.90625
+cotton,rain-fed_yield,18|PAKISTAN,year,kton DW/ Mha,637.95098829977
+fodder,rain-fed_yield,18|PAKISTAN,year,kton DW/ Mha,1149.55910663814
+fruit,rain-fed_yield,18|PAKISTAN,year,kton DW/ Mha,59.296875
+maize,rain-fed_yield,18|PAKISTAN,year,kton DW/ Mha,435.879018900119
+pulses,rain-fed_yield,18|PAKISTAN,year,kton DW/ Mha,31.890625
+rice,rain-fed_yield,18|PAKISTAN,year,kton DW/ Mha,163.451163707069
+sugarcane,rain-fed_yield,18|PAKISTAN,year,kton DW/ Mha,3510.21531355159
+vegetables,rain-fed_yield,18|PAKISTAN,year,kton DW/ Mha,93.609375
+wheat,rain-fed_yield,18|PAKISTAN,year,kton DW/ Mha,458.861729822268
+cotton,rain-fed_yield,19|PAKISTAN,year,kton DW/ Mha,608.043849609739
+fodder,rain-fed_yield,19|PAKISTAN,year,kton DW/ Mha,888.30869416518
+fruit,rain-fed_yield,19|PAKISTAN,year,kton DW/ Mha,72.15625
+maize,rain-fed_yield,19|PAKISTAN,year,kton DW/ Mha,1693.49578111785
+pulses,rain-fed_yield,19|PAKISTAN,year,kton DW/ Mha,31.34375
+rice,rain-fed_yield,19|PAKISTAN,year,kton DW/ Mha,72.0
+sugarcane,rain-fed_yield,19|PAKISTAN,year,kton DW/ Mha,3830.33567119977
+vegetables,rain-fed_yield,19|PAKISTAN,year,kton DW/ Mha,92.703125
+wheat,rain-fed_yield,19|PAKISTAN,year,kton DW/ Mha,693.08879945199
+cotton,rain-fed_yield,20|PAKISTAN,year,kton DW/ Mha,172.915721240742
+fodder,rain-fed_yield,20|PAKISTAN,year,kton DW/ Mha,64.84375
+maize,rain-fed_yield,20|PAKISTAN,year,kton DW/ Mha,73.40625
+pulses,rain-fed_yield,20|PAKISTAN,year,kton DW/ Mha,25.21875
+rice,rain-fed_yield,20|PAKISTAN,year,kton DW/ Mha,35.96875
+sugarcane,rain-fed_yield,20|PAKISTAN,year,kton DW/ Mha,4985.41102890191
+vegetables,rain-fed_yield,20|PAKISTAN,year,kton DW/ Mha,50.90625
+wheat,rain-fed_yield,20|PAKISTAN,year,kton DW/ Mha,162.076887732804
+wheat,crop_rainfed_land_2015,1|AFGHAN_SOUTH,year,Mha,0.0005427187832965
+wheat,crop_rainfed_land_2015,2|AFGHAN_NORTH,year,Mha,0.0016450085769733
+wheat,crop_rainfed_land_2015,3|CHINA,year,Mha,0.0
+wheat,crop_rainfed_land_2015,4|CHINA,year,Mha,0.0
+wheat,crop_rainfed_land_2015,5|CHINA,year,Mha,0.0
+wheat,crop_rainfed_land_2015,6|INDIA_WEST,year,Mha,0.0
+wheat,crop_rainfed_land_2015,7|INDIA_WEST,year,Mha,5.89114080458642e-05
+wheat,crop_rainfed_land_2015,8|INDIA_WEST,year,Mha,0.0019210336447017
+wheat,crop_rainfed_land_2015,9|INDIA_EAST,year,Mha,0.209965559040543
+wheat,crop_rainfed_land_2015,10|INDIA_WEST,year,Mha,0.0
+wheat,crop_rainfed_land_2015,11|INDIA_WEST,year,Mha,0.0
+wheat,crop_rainfed_land_2015,12|PAKISTAN,year,Mha,0.0161965983341113
+wheat,crop_rainfed_land_2015,21|PAKISTAN,year,Mha,0.0006589294353683
+wheat,crop_rainfed_land_2015,22|PAKISTAN,year,Mha,0.0
+wheat,crop_rainfed_land_2015,23|PAKISTAN,year,Mha,0.0894266605819896
+wheat,crop_rainfed_land_2015,24|PAKISTAN,year,Mha,0.0
+wheat,crop_rainfed_land_2015,13|PAKISTAN,year,Mha,0.0036534080864339
+wheat,crop_rainfed_land_2015,14|PAKISTAN,year,Mha,0.0036635764817026
+wheat,crop_rainfed_land_2015,15|PAKISTAN,year,Mha,0.0
+wheat,crop_rainfed_land_2015,16|PAKISTAN,year,Mha,0.0
+wheat,crop_rainfed_land_2015,17|PAKISTAN,year,Mha,0.0008471132527776
+wheat,crop_rainfed_land_2015,18|PAKISTAN,year,Mha,0.0125455961177612
+wheat,crop_rainfed_land_2015,19|PAKISTAN,year,Mha,0.0231263452751675
+wheat,crop_rainfed_land_2015,20|PAKISTAN,year,Mha,0.003123547595318
+rice,crop_rainfed_land_2015,1|AFGHAN_SOUTH,year,Mha,0.0
+rice,crop_rainfed_land_2015,2|AFGHAN_NORTH,year,Mha,0.0
+rice,crop_rainfed_land_2015,3|CHINA,year,Mha,0.0
+rice,crop_rainfed_land_2015,4|CHINA,year,Mha,0.0
+rice,crop_rainfed_land_2015,5|CHINA,year,Mha,0.0
+rice,crop_rainfed_land_2015,6|INDIA_WEST,year,Mha,0.0
+rice,crop_rainfed_land_2015,7|INDIA_WEST,year,Mha,0.0
+rice,crop_rainfed_land_2015,8|INDIA_WEST,year,Mha,0.0002572429842366
+rice,crop_rainfed_land_2015,9|INDIA_EAST,year,Mha,0.0200591007572298
+rice,crop_rainfed_land_2015,10|INDIA_WEST,year,Mha,0.0
+rice,crop_rainfed_land_2015,11|INDIA_WEST,year,Mha,0.0
+rice,crop_rainfed_land_2015,12|PAKISTAN,year,Mha,0.0
+rice,crop_rainfed_land_2015,21|PAKISTAN,year,Mha,0.0
+rice,crop_rainfed_land_2015,22|PAKISTAN,year,Mha,0.0
+rice,crop_rainfed_land_2015,23|PAKISTAN,year,Mha,0.0
+rice,crop_rainfed_land_2015,24|PAKISTAN,year,Mha,0.0
+rice,crop_rainfed_land_2015,13|PAKISTAN,year,Mha,0.0
+rice,crop_rainfed_land_2015,14|PAKISTAN,year,Mha,0.0
+rice,crop_rainfed_land_2015,15|PAKISTAN,year,Mha,0.0
+rice,crop_rainfed_land_2015,16|PAKISTAN,year,Mha,0.0
+rice,crop_rainfed_land_2015,17|PAKISTAN,year,Mha,0.0
+rice,crop_rainfed_land_2015,18|PAKISTAN,year,Mha,0.0
+rice,crop_rainfed_land_2015,19|PAKISTAN,year,Mha,0.0
+rice,crop_rainfed_land_2015,20|PAKISTAN,year,Mha,2.10764832040347e-06
+cotton,crop_rainfed_land_2015,1|AFGHAN_SOUTH,year,Mha,2.49853545191441e-06
+cotton,crop_rainfed_land_2015,2|AFGHAN_NORTH,year,Mha,1.44064889750995e-05
+cotton,crop_rainfed_land_2015,3|CHINA,year,Mha,0.0
+cotton,crop_rainfed_land_2015,4|CHINA,year,Mha,0.0
+cotton,crop_rainfed_land_2015,5|CHINA,year,Mha,0.0
+cotton,crop_rainfed_land_2015,6|INDIA_WEST,year,Mha,0.0
+cotton,crop_rainfed_land_2015,7|INDIA_WEST,year,Mha,0.0
+cotton,crop_rainfed_land_2015,8|INDIA_WEST,year,Mha,0.0014951113393573
+cotton,crop_rainfed_land_2015,9|INDIA_EAST,year,Mha,0.088445805388434
+cotton,crop_rainfed_land_2015,10|INDIA_WEST,year,Mha,0.0
+cotton,crop_rainfed_land_2015,11|INDIA_WEST,year,Mha,0.0
+cotton,crop_rainfed_land_2015,12|PAKISTAN,year,Mha,0.0231937660570744
+cotton,crop_rainfed_land_2015,21|PAKISTAN,year,Mha,0.0068190618274508
+cotton,crop_rainfed_land_2015,22|PAKISTAN,year,Mha,0.0
+cotton,crop_rainfed_land_2015,23|PAKISTAN,year,Mha,0.067943081713048
+cotton,crop_rainfed_land_2015,24|PAKISTAN,year,Mha,0.0
+cotton,crop_rainfed_land_2015,13|PAKISTAN,year,Mha,0.0056866653607389
+cotton,crop_rainfed_land_2015,14|PAKISTAN,year,Mha,0.0078377279063721
+cotton,crop_rainfed_land_2015,15|PAKISTAN,year,Mha,0.0179294231406398
+cotton,crop_rainfed_land_2015,16|PAKISTAN,year,Mha,5.14358416176643e-05
+cotton,crop_rainfed_land_2015,17|PAKISTAN,year,Mha,0.0010419755133047
+cotton,crop_rainfed_land_2015,18|PAKISTAN,year,Mha,0.0232648530642464
+cotton,crop_rainfed_land_2015,19|PAKISTAN,year,Mha,0.0142727495057024
+cotton,crop_rainfed_land_2015,20|PAKISTAN,year,Mha,0.0012499964777954
+fodder,crop_rainfed_land_2015,1|AFGHAN_SOUTH,year,Mha,0.0
+fodder,crop_rainfed_land_2015,2|AFGHAN_NORTH,year,Mha,0.0
+fodder,crop_rainfed_land_2015,3|CHINA,year,Mha,0.0
+fodder,crop_rainfed_land_2015,4|CHINA,year,Mha,0.0
+fodder,crop_rainfed_land_2015,5|CHINA,year,Mha,0.0
+fodder,crop_rainfed_land_2015,6|INDIA_WEST,year,Mha,0.0
+fodder,crop_rainfed_land_2015,7|INDIA_WEST,year,Mha,4.46962223055156e-05
+fodder,crop_rainfed_land_2015,8|INDIA_WEST,year,Mha,0.0002089544281285
+fodder,crop_rainfed_land_2015,9|INDIA_EAST,year,Mha,0.0007618279780509
+fodder,crop_rainfed_land_2015,10|INDIA_WEST,year,Mha,0.0
+fodder,crop_rainfed_land_2015,11|INDIA_WEST,year,Mha,0.0
+fodder,crop_rainfed_land_2015,12|PAKISTAN,year,Mha,0.0
+fodder,crop_rainfed_land_2015,21|PAKISTAN,year,Mha,2.3509509227865e-06
+fodder,crop_rainfed_land_2015,22|PAKISTAN,year,Mha,0.0
+fodder,crop_rainfed_land_2015,23|PAKISTAN,year,Mha,0.0
+fodder,crop_rainfed_land_2015,24|PAKISTAN,year,Mha,0.0
+fodder,crop_rainfed_land_2015,13|PAKISTAN,year,Mha,0.0
+fodder,crop_rainfed_land_2015,14|PAKISTAN,year,Mha,0.0
+fodder,crop_rainfed_land_2015,15|PAKISTAN,year,Mha,0.0
+fodder,crop_rainfed_land_2015,16|PAKISTAN,year,Mha,0.0
+fodder,crop_rainfed_land_2015,17|PAKISTAN,year,Mha,0.0
+fodder,crop_rainfed_land_2015,18|PAKISTAN,year,Mha,0.0
+fodder,crop_rainfed_land_2015,19|PAKISTAN,year,Mha,0.0
+fodder,crop_rainfed_land_2015,20|PAKISTAN,year,Mha,6.99847196105012e-07
+sugarcane,crop_rainfed_land_2015,1|AFGHAN_SOUTH,year,Mha,0.0
+sugarcane,crop_rainfed_land_2015,2|AFGHAN_NORTH,year,Mha,0.0
+sugarcane,crop_rainfed_land_2015,3|CHINA,year,Mha,0.0
+sugarcane,crop_rainfed_land_2015,4|CHINA,year,Mha,0.0
+sugarcane,crop_rainfed_land_2015,5|CHINA,year,Mha,0.0
+sugarcane,crop_rainfed_land_2015,6|INDIA_WEST,year,Mha,0.0
+sugarcane,crop_rainfed_land_2015,7|INDIA_WEST,year,Mha,0.0
+sugarcane,crop_rainfed_land_2015,8|INDIA_WEST,year,Mha,0.000635123226481
+sugarcane,crop_rainfed_land_2015,9|INDIA_EAST,year,Mha,0.0323933191772779
+sugarcane,crop_rainfed_land_2015,10|INDIA_WEST,year,Mha,0.0
+sugarcane,crop_rainfed_land_2015,11|INDIA_WEST,year,Mha,0.0
+sugarcane,crop_rainfed_land_2015,12|PAKISTAN,year,Mha,0.0272672457141871
+sugarcane,crop_rainfed_land_2015,21|PAKISTAN,year,Mha,0.0
+sugarcane,crop_rainfed_land_2015,22|PAKISTAN,year,Mha,0.0
+sugarcane,crop_rainfed_land_2015,23|PAKISTAN,year,Mha,0.0544117019253127
+sugarcane,crop_rainfed_land_2015,24|PAKISTAN,year,Mha,0.0
+sugarcane,crop_rainfed_land_2015,13|PAKISTAN,year,Mha,0.0063343355036686
+sugarcane,crop_rainfed_land_2015,14|PAKISTAN,year,Mha,0.0
+sugarcane,crop_rainfed_land_2015,15|PAKISTAN,year,Mha,0.0
+sugarcane,crop_rainfed_land_2015,16|PAKISTAN,year,Mha,0.0
+sugarcane,crop_rainfed_land_2015,17|PAKISTAN,year,Mha,0.0
+sugarcane,crop_rainfed_land_2015,18|PAKISTAN,year,Mha,0.0071659865054275
+sugarcane,crop_rainfed_land_2015,19|PAKISTAN,year,Mha,0.0069749289975597
+sugarcane,crop_rainfed_land_2015,20|PAKISTAN,year,Mha,0.0035641049759133
+pulses,crop_rainfed_land_2015,1|AFGHAN_SOUTH,year,Mha,0.0001842668689195
+pulses,crop_rainfed_land_2015,2|AFGHAN_NORTH,year,Mha,0.000165854889223
+pulses,crop_rainfed_land_2015,3|CHINA,year,Mha,0.0
+pulses,crop_rainfed_land_2015,4|CHINA,year,Mha,0.0
+pulses,crop_rainfed_land_2015,5|CHINA,year,Mha,0.0
+pulses,crop_rainfed_land_2015,6|INDIA_WEST,year,Mha,0.0
+pulses,crop_rainfed_land_2015,7|INDIA_WEST,year,Mha,6.66015303897516e-06
+pulses,crop_rainfed_land_2015,8|INDIA_WEST,year,Mha,0.000354632551605
+pulses,crop_rainfed_land_2015,9|INDIA_EAST,year,Mha,0.002155175775509
+pulses,crop_rainfed_land_2015,10|INDIA_WEST,year,Mha,0.0
+pulses,crop_rainfed_land_2015,11|INDIA_WEST,year,Mha,0.0
+pulses,crop_rainfed_land_2015,12|PAKISTAN,year,Mha,0.0022385290017409
+pulses,crop_rainfed_land_2015,21|PAKISTAN,year,Mha,0.0005912906405545
+pulses,crop_rainfed_land_2015,22|PAKISTAN,year,Mha,0.0
+pulses,crop_rainfed_land_2015,23|PAKISTAN,year,Mha,0.0098428407035456
+pulses,crop_rainfed_land_2015,24|PAKISTAN,year,Mha,0.0
+pulses,crop_rainfed_land_2015,13|PAKISTAN,year,Mha,0.0004620559419382
+pulses,crop_rainfed_land_2015,14|PAKISTAN,year,Mha,0.001004854383223
+pulses,crop_rainfed_land_2015,15|PAKISTAN,year,Mha,0.000518990801433
+pulses,crop_rainfed_land_2015,16|PAKISTAN,year,Mha,0.0036443649723321
+pulses,crop_rainfed_land_2015,17|PAKISTAN,year,Mha,0.0012349655874296
+pulses,crop_rainfed_land_2015,18|PAKISTAN,year,Mha,0.0027428587175412
+pulses,crop_rainfed_land_2015,19|PAKISTAN,year,Mha,0.0007215584696412
+pulses,crop_rainfed_land_2015,20|PAKISTAN,year,Mha,0.0005026282297785
+maize,crop_rainfed_land_2015,1|AFGHAN_SOUTH,year,Mha,4.08067995934877e-06
+maize,crop_rainfed_land_2015,2|AFGHAN_NORTH,year,Mha,7.06623132283725e-06
+maize,crop_rainfed_land_2015,3|CHINA,year,Mha,0.0
+maize,crop_rainfed_land_2015,4|CHINA,year,Mha,0.0
+maize,crop_rainfed_land_2015,5|CHINA,year,Mha,0.0
+maize,crop_rainfed_land_2015,6|INDIA_WEST,year,Mha,0.0
+maize,crop_rainfed_land_2015,7|INDIA_WEST,year,Mha,7.05372698122352e-05
+maize,crop_rainfed_land_2015,8|INDIA_WEST,year,Mha,0.0061476340156856
+maize,crop_rainfed_land_2015,9|INDIA_EAST,year,Mha,0.0410486212439391
+maize,crop_rainfed_land_2015,10|INDIA_WEST,year,Mha,0.0
+maize,crop_rainfed_land_2015,11|INDIA_WEST,year,Mha,0.0
+maize,crop_rainfed_land_2015,12|PAKISTAN,year,Mha,0.0032636056432976
+maize,crop_rainfed_land_2015,21|PAKISTAN,year,Mha,8.91513829443467e-05
+maize,crop_rainfed_land_2015,22|PAKISTAN,year,Mha,0.0
+maize,crop_rainfed_land_2015,23|PAKISTAN,year,Mha,0.0217628808933805
+maize,crop_rainfed_land_2015,24|PAKISTAN,year,Mha,0.0
+maize,crop_rainfed_land_2015,13|PAKISTAN,year,Mha,0.000380002740015
+maize,crop_rainfed_land_2015,14|PAKISTAN,year,Mha,0.0001706126957197
+maize,crop_rainfed_land_2015,15|PAKISTAN,year,Mha,0.0
+maize,crop_rainfed_land_2015,16|PAKISTAN,year,Mha,0.0
+maize,crop_rainfed_land_2015,17|PAKISTAN,year,Mha,0.0
+maize,crop_rainfed_land_2015,18|PAKISTAN,year,Mha,0.0099258212596104
+maize,crop_rainfed_land_2015,19|PAKISTAN,year,Mha,0.021943442731578
+maize,crop_rainfed_land_2015,20|PAKISTAN,year,Mha,0.0001335671185026
+fruit,crop_rainfed_land_2015,1|AFGHAN_SOUTH,year,Mha,0.0
+fruit,crop_rainfed_land_2015,2|AFGHAN_NORTH,year,Mha,0.0
+fruit,crop_rainfed_land_2015,3|CHINA,year,Mha,0.0
+fruit,crop_rainfed_land_2015,4|CHINA,year,Mha,0.0
+fruit,crop_rainfed_land_2015,5|CHINA,year,Mha,0.0
+fruit,crop_rainfed_land_2015,6|INDIA_WEST,year,Mha,0.0
+fruit,crop_rainfed_land_2015,7|INDIA_WEST,year,Mha,0.0
+fruit,crop_rainfed_land_2015,8|INDIA_WEST,year,Mha,0.0005535391956171
+fruit,crop_rainfed_land_2015,9|INDIA_EAST,year,Mha,0.0074534342910478
+fruit,crop_rainfed_land_2015,10|INDIA_WEST,year,Mha,0.0
+fruit,crop_rainfed_land_2015,11|INDIA_WEST,year,Mha,0.0
+fruit,crop_rainfed_land_2015,12|PAKISTAN,year,Mha,9.90762202764707e-05
+fruit,crop_rainfed_land_2015,21|PAKISTAN,year,Mha,0.0
+fruit,crop_rainfed_land_2015,22|PAKISTAN,year,Mha,0.0
+fruit,crop_rainfed_land_2015,23|PAKISTAN,year,Mha,2.9871531006363e-05
+fruit,crop_rainfed_land_2015,24|PAKISTAN,year,Mha,0.0
+fruit,crop_rainfed_land_2015,13|PAKISTAN,year,Mha,2.39366190941219e-06
+fruit,crop_rainfed_land_2015,14|PAKISTAN,year,Mha,0.0
+fruit,crop_rainfed_land_2015,15|PAKISTAN,year,Mha,0.0
+fruit,crop_rainfed_land_2015,16|PAKISTAN,year,Mha,0.0
+fruit,crop_rainfed_land_2015,17|PAKISTAN,year,Mha,0.0
+fruit,crop_rainfed_land_2015,18|PAKISTAN,year,Mha,0.0
+fruit,crop_rainfed_land_2015,19|PAKISTAN,year,Mha,6.62567599207572e-06
+fruit,crop_rainfed_land_2015,20|PAKISTAN,year,Mha,0.0
+vegetables,crop_rainfed_land_2015,1|AFGHAN_SOUTH,year,Mha,1.08308219910445e-06
+vegetables,crop_rainfed_land_2015,2|AFGHAN_NORTH,year,Mha,7.79328946472947e-06
+vegetables,crop_rainfed_land_2015,3|CHINA,year,Mha,0.0
+vegetables,crop_rainfed_land_2015,4|CHINA,year,Mha,0.0
+vegetables,crop_rainfed_land_2015,5|CHINA,year,Mha,0.0
+vegetables,crop_rainfed_land_2015,6|INDIA_WEST,year,Mha,0.0
+vegetables,crop_rainfed_land_2015,7|INDIA_WEST,year,Mha,6.59246071538203e-06
+vegetables,crop_rainfed_land_2015,8|INDIA_WEST,year,Mha,0.0002636470692628
+vegetables,crop_rainfed_land_2015,9|INDIA_EAST,year,Mha,0.0098295639601272
+vegetables,crop_rainfed_land_2015,10|INDIA_WEST,year,Mha,0.0
+vegetables,crop_rainfed_land_2015,11|INDIA_WEST,year,Mha,0.0
+vegetables,crop_rainfed_land_2015,12|PAKISTAN,year,Mha,0.0001097287982662
+vegetables,crop_rainfed_land_2015,21|PAKISTAN,year,Mha,2.03402610219844e-06
+vegetables,crop_rainfed_land_2015,22|PAKISTAN,year,Mha,0.0
+vegetables,crop_rainfed_land_2015,23|PAKISTAN,year,Mha,0.0002671776285114
+vegetables,crop_rainfed_land_2015,24|PAKISTAN,year,Mha,0.0
+vegetables,crop_rainfed_land_2015,13|PAKISTAN,year,Mha,2.12792699447586e-05
+vegetables,crop_rainfed_land_2015,14|PAKISTAN,year,Mha,4.33473361473278e-06
+vegetables,crop_rainfed_land_2015,15|PAKISTAN,year,Mha,0.0
+vegetables,crop_rainfed_land_2015,16|PAKISTAN,year,Mha,0.0
+vegetables,crop_rainfed_land_2015,17|PAKISTAN,year,Mha,0.0
+vegetables,crop_rainfed_land_2015,18|PAKISTAN,year,Mha,0.0003175113875447
+vegetables,crop_rainfed_land_2015,19|PAKISTAN,year,Mha,0.0002803764211947
+vegetables,crop_rainfed_land_2015,20|PAKISTAN,year,Mha,2.10917600179277e-05
+wheat,crop_irr_land_2015,1|AFGHAN_SOUTH,year,Mha,0.0245724351228145
+wheat,crop_irr_land_2015,2|AFGHAN_NORTH,year,Mha,0.137111759259636
+wheat,crop_irr_land_2015,3|CHINA,year,Mha,0.0
+wheat,crop_irr_land_2015,4|CHINA,year,Mha,0.0
+wheat,crop_irr_land_2015,5|CHINA,year,Mha,0.0
+wheat,crop_irr_land_2015,6|INDIA_WEST,year,Mha,0.0
+wheat,crop_irr_land_2015,7|INDIA_WEST,year,Mha,0.000878863439046
+wheat,crop_irr_land_2015,8|INDIA_WEST,year,Mha,0.262144497588206
+wheat,crop_irr_land_2015,9|INDIA_EAST,year,Mha,1.41902058396613
+wheat,crop_irr_land_2015,10|INDIA_WEST,year,Mha,0.0
+wheat,crop_irr_land_2015,11|INDIA_WEST,year,Mha,0.0
+wheat,crop_irr_land_2015,12|PAKISTAN,year,Mha,0.29793655255902
+wheat,crop_irr_land_2015,21|PAKISTAN,year,Mha,1.51550101866964
+wheat,crop_irr_land_2015,22|PAKISTAN,year,Mha,0.0
+wheat,crop_irr_land_2015,23|PAKISTAN,year,Mha,0.399536913650818
+wheat,crop_irr_land_2015,24|PAKISTAN,year,Mha,0.0
+wheat,crop_irr_land_2015,13|PAKISTAN,year,Mha,0.438032429412114
+wheat,crop_irr_land_2015,14|PAKISTAN,year,Mha,0.53707079030587
+wheat,crop_irr_land_2015,15|PAKISTAN,year,Mha,0.113934576455319
+wheat,crop_irr_land_2015,16|PAKISTAN,year,Mha,0.431931892168101
+wheat,crop_irr_land_2015,17|PAKISTAN,year,Mha,0.397606417188221
+wheat,crop_irr_land_2015,18|PAKISTAN,year,Mha,0.0933123219349782
+wheat,crop_irr_land_2015,19|PAKISTAN,year,Mha,0.0263129470058884
+wheat,crop_irr_land_2015,20|PAKISTAN,year,Mha,0.695155372630176
+rice,crop_irr_land_2015,1|AFGHAN_SOUTH,year,Mha,0.0059176989287858
+rice,crop_irr_land_2015,2|AFGHAN_NORTH,year,Mha,0.0239722835444989
+rice,crop_irr_land_2015,3|CHINA,year,Mha,0.0
+rice,crop_irr_land_2015,4|CHINA,year,Mha,0.0
+rice,crop_irr_land_2015,5|CHINA,year,Mha,0.0
+rice,crop_irr_land_2015,6|INDIA_WEST,year,Mha,0.0
+rice,crop_irr_land_2015,7|INDIA_WEST,year,Mha,0.0
+rice,crop_irr_land_2015,8|INDIA_WEST,year,Mha,0.17342170740238
+rice,crop_irr_land_2015,9|INDIA_EAST,year,Mha,0.722765905261379
+rice,crop_irr_land_2015,10|INDIA_WEST,year,Mha,0.0
+rice,crop_irr_land_2015,11|INDIA_WEST,year,Mha,0.0
+rice,crop_irr_land_2015,12|PAKISTAN,year,Mha,0.0677254141966752
+rice,crop_irr_land_2015,21|PAKISTAN,year,Mha,0.441280344031396
+rice,crop_irr_land_2015,22|PAKISTAN,year,Mha,0.0
+rice,crop_irr_land_2015,23|PAKISTAN,year,Mha,0.112862586496963
+rice,crop_irr_land_2015,24|PAKISTAN,year,Mha,0.0
+rice,crop_irr_land_2015,13|PAKISTAN,year,Mha,0.196134102123207
+rice,crop_irr_land_2015,14|PAKISTAN,year,Mha,0.20616948149139
+rice,crop_irr_land_2015,15|PAKISTAN,year,Mha,0.0814340611304346
+rice,crop_irr_land_2015,16|PAKISTAN,year,Mha,0.19005627454484
+rice,crop_irr_land_2015,17|PAKISTAN,year,Mha,0.239062801598316
+rice,crop_irr_land_2015,18|PAKISTAN,year,Mha,0.0092144920929967
+rice,crop_irr_land_2015,19|PAKISTAN,year,Mha,0.0095873645242725
+rice,crop_irr_land_2015,20|PAKISTAN,year,Mha,0.479298657729538
+cotton,crop_irr_land_2015,1|AFGHAN_SOUTH,year,Mha,0.0014481458351801
+cotton,crop_irr_land_2015,2|AFGHAN_NORTH,year,Mha,0.0073976395590501
+cotton,crop_irr_land_2015,3|CHINA,year,Mha,0.0
+cotton,crop_irr_land_2015,4|CHINA,year,Mha,0.0
+cotton,crop_irr_land_2015,5|CHINA,year,Mha,0.0
+cotton,crop_irr_land_2015,6|INDIA_WEST,year,Mha,0.0
+cotton,crop_irr_land_2015,7|INDIA_WEST,year,Mha,0.0
+cotton,crop_irr_land_2015,8|INDIA_WEST,year,Mha,0.0452726893207611
+cotton,crop_irr_land_2015,9|INDIA_EAST,year,Mha,0.178115883037102
+cotton,crop_irr_land_2015,10|INDIA_WEST,year,Mha,0.0
+cotton,crop_irr_land_2015,11|INDIA_WEST,year,Mha,0.0
+cotton,crop_irr_land_2015,12|PAKISTAN,year,Mha,0.0695100603792654
+cotton,crop_irr_land_2015,21|PAKISTAN,year,Mha,0.46153668509731
+cotton,crop_irr_land_2015,22|PAKISTAN,year,Mha,0.0
+cotton,crop_irr_land_2015,23|PAKISTAN,year,Mha,0.156949115231029
+cotton,crop_irr_land_2015,24|PAKISTAN,year,Mha,0.0
+cotton,crop_irr_land_2015,13|PAKISTAN,year,Mha,0.141935578778219
+cotton,crop_irr_land_2015,14|PAKISTAN,year,Mha,0.158172815156303
+cotton,crop_irr_land_2015,15|PAKISTAN,year,Mha,0.0439363575886048
+cotton,crop_irr_land_2015,16|PAKISTAN,year,Mha,0.148742808519116
+cotton,crop_irr_land_2015,17|PAKISTAN,year,Mha,0.156198299738153
+cotton,crop_irr_land_2015,18|PAKISTAN,year,Mha,0.0522781112146231
+cotton,crop_irr_land_2015,19|PAKISTAN,year,Mha,0.0087701246429094
+cotton,crop_irr_land_2015,20|PAKISTAN,year,Mha,0.44357511419321
+fodder,crop_irr_land_2015,1|AFGHAN_SOUTH,year,Mha,0.0
+fodder,crop_irr_land_2015,2|AFGHAN_NORTH,year,Mha,0.0
+fodder,crop_irr_land_2015,3|CHINA,year,Mha,0.0
+fodder,crop_irr_land_2015,4|CHINA,year,Mha,0.0
+fodder,crop_irr_land_2015,5|CHINA,year,Mha,0.0
+fodder,crop_irr_land_2015,6|INDIA_WEST,year,Mha,0.0
+fodder,crop_irr_land_2015,7|INDIA_WEST,year,Mha,0.0004018449810761
+fodder,crop_irr_land_2015,8|INDIA_WEST,year,Mha,0.0056234286728843
+fodder,crop_irr_land_2015,9|INDIA_EAST,year,Mha,0.0287671570767699
+fodder,crop_irr_land_2015,10|INDIA_WEST,year,Mha,0.0
+fodder,crop_irr_land_2015,11|INDIA_WEST,year,Mha,0.0
+fodder,crop_irr_land_2015,12|PAKISTAN,year,Mha,0.0
+fodder,crop_irr_land_2015,21|PAKISTAN,year,Mha,0.0014445730712147
+fodder,crop_irr_land_2015,22|PAKISTAN,year,Mha,0.0
+fodder,crop_irr_land_2015,23|PAKISTAN,year,Mha,0.0
+fodder,crop_irr_land_2015,24|PAKISTAN,year,Mha,0.0
+fodder,crop_irr_land_2015,13|PAKISTAN,year,Mha,0.0
+fodder,crop_irr_land_2015,14|PAKISTAN,year,Mha,0.0
+fodder,crop_irr_land_2015,15|PAKISTAN,year,Mha,0.0
+fodder,crop_irr_land_2015,16|PAKISTAN,year,Mha,0.0
+fodder,crop_irr_land_2015,17|PAKISTAN,year,Mha,0.0
+fodder,crop_irr_land_2015,18|PAKISTAN,year,Mha,0.0
+fodder,crop_irr_land_2015,19|PAKISTAN,year,Mha,0.0
+fodder,crop_irr_land_2015,20|PAKISTAN,year,Mha,0.0001106289116662
+sugarcane,crop_irr_land_2015,1|AFGHAN_SOUTH,year,Mha,2.30547292542178e-05
+sugarcane,crop_irr_land_2015,2|AFGHAN_NORTH,year,Mha,0.0008621813281698
+sugarcane,crop_irr_land_2015,3|CHINA,year,Mha,0.0
+sugarcane,crop_irr_land_2015,4|CHINA,year,Mha,0.0
+sugarcane,crop_irr_land_2015,5|CHINA,year,Mha,0.0
+sugarcane,crop_irr_land_2015,6|INDIA_WEST,year,Mha,0.0
+sugarcane,crop_irr_land_2015,7|INDIA_WEST,year,Mha,0.0
+sugarcane,crop_irr_land_2015,8|INDIA_WEST,year,Mha,0.009436188170687
+sugarcane,crop_irr_land_2015,9|INDIA_EAST,year,Mha,0.0627849977456433
+sugarcane,crop_irr_land_2015,10|INDIA_WEST,year,Mha,0.0
+sugarcane,crop_irr_land_2015,11|INDIA_WEST,year,Mha,0.0
+sugarcane,crop_irr_land_2015,12|PAKISTAN,year,Mha,0.0272668209421406
+sugarcane,crop_irr_land_2015,21|PAKISTAN,year,Mha,0.170839399863558
+sugarcane,crop_irr_land_2015,22|PAKISTAN,year,Mha,0.0
+sugarcane,crop_irr_land_2015,23|PAKISTAN,year,Mha,0.0505981246378455
+sugarcane,crop_irr_land_2015,24|PAKISTAN,year,Mha,0.0
+sugarcane,crop_irr_land_2015,13|PAKISTAN,year,Mha,0.0510678540861345
+sugarcane,crop_irr_land_2015,14|PAKISTAN,year,Mha,0.0641165566165506
+sugarcane,crop_irr_land_2015,15|PAKISTAN,year,Mha,0.0348987425162493
+sugarcane,crop_irr_land_2015,16|PAKISTAN,year,Mha,0.078824342446046
+sugarcane,crop_irr_land_2015,17|PAKISTAN,year,Mha,0.0570147220473276
+sugarcane,crop_irr_land_2015,18|PAKISTAN,year,Mha,0.0117620685784145
+sugarcane,crop_irr_land_2015,19|PAKISTAN,year,Mha,0.0063384210498153
+sugarcane,crop_irr_land_2015,20|PAKISTAN,year,Mha,0.0800705089628586
+pulses,crop_irr_land_2015,1|AFGHAN_SOUTH,year,Mha,0.0020700806419977
+pulses,crop_irr_land_2015,2|AFGHAN_NORTH,year,Mha,0.0104852080681101
+pulses,crop_irr_land_2015,3|CHINA,year,Mha,0.0
+pulses,crop_irr_land_2015,4|CHINA,year,Mha,0.0
+pulses,crop_irr_land_2015,5|CHINA,year,Mha,0.0
+pulses,crop_irr_land_2015,6|INDIA_WEST,year,Mha,0.0
+pulses,crop_irr_land_2015,7|INDIA_WEST,year,Mha,0.0001078520936777
+pulses,crop_irr_land_2015,8|INDIA_WEST,year,Mha,0.0217642180331733
+pulses,crop_irr_land_2015,9|INDIA_EAST,year,Mha,0.116864669741011
+pulses,crop_irr_land_2015,10|INDIA_WEST,year,Mha,0.0
+pulses,crop_irr_land_2015,11|INDIA_WEST,year,Mha,0.0
+pulses,crop_irr_land_2015,12|PAKISTAN,year,Mha,0.0160207378302866
+pulses,crop_irr_land_2015,21|PAKISTAN,year,Mha,0.109201189425547
+pulses,crop_irr_land_2015,22|PAKISTAN,year,Mha,0.0
+pulses,crop_irr_land_2015,23|PAKISTAN,year,Mha,0.037168375811964
+pulses,crop_irr_land_2015,24|PAKISTAN,year,Mha,0.0
+pulses,crop_irr_land_2015,13|PAKISTAN,year,Mha,0.0312910609792903
+pulses,crop_irr_land_2015,14|PAKISTAN,year,Mha,0.0422011759576579
+pulses,crop_irr_land_2015,15|PAKISTAN,year,Mha,0.0143869144233214
+pulses,crop_irr_land_2015,16|PAKISTAN,year,Mha,0.037519487612944
+pulses,crop_irr_land_2015,17|PAKISTAN,year,Mha,0.0489859297948226
+pulses,crop_irr_land_2015,18|PAKISTAN,year,Mha,0.0138011266843931
+pulses,crop_irr_land_2015,19|PAKISTAN,year,Mha,0.0036145612856165
+pulses,crop_irr_land_2015,20|PAKISTAN,year,Mha,0.0439713453242773
+maize,crop_irr_land_2015,1|AFGHAN_SOUTH,year,Mha,0.0027771397828167
+maize,crop_irr_land_2015,2|AFGHAN_NORTH,year,Mha,0.0136392234249421
+maize,crop_irr_land_2015,3|CHINA,year,Mha,0.0
+maize,crop_irr_land_2015,4|CHINA,year,Mha,0.0
+maize,crop_irr_land_2015,5|CHINA,year,Mha,0.0
+maize,crop_irr_land_2015,6|INDIA_WEST,year,Mha,0.0
+maize,crop_irr_land_2015,7|INDIA_WEST,year,Mha,6.25974892841488e-05
+maize,crop_irr_land_2015,8|INDIA_WEST,year,Mha,0.0049026855633278
+maize,crop_irr_land_2015,9|INDIA_EAST,year,Mha,0.0787794313371334
+maize,crop_irr_land_2015,10|INDIA_WEST,year,Mha,0.0
+maize,crop_irr_land_2015,11|INDIA_WEST,year,Mha,0.0
+maize,crop_irr_land_2015,12|PAKISTAN,year,Mha,0.0181600554843753
+maize,crop_irr_land_2015,21|PAKISTAN,year,Mha,0.119147977663514
+maize,crop_irr_land_2015,22|PAKISTAN,year,Mha,0.0
+maize,crop_irr_land_2015,23|PAKISTAN,year,Mha,0.070566384764511
+maize,crop_irr_land_2015,24|PAKISTAN,year,Mha,0.0
+maize,crop_irr_land_2015,13|PAKISTAN,year,Mha,0.0351852775808306
+maize,crop_irr_land_2015,14|PAKISTAN,year,Mha,0.101068627280726
+maize,crop_irr_land_2015,15|PAKISTAN,year,Mha,0.0011275207077282
+maize,crop_irr_land_2015,16|PAKISTAN,year,Mha,0.0240757253147315
+maize,crop_irr_land_2015,17|PAKISTAN,year,Mha,0.0042645896653738
+maize,crop_irr_land_2015,18|PAKISTAN,year,Mha,0.065836572618741
+maize,crop_irr_land_2015,19|PAKISTAN,year,Mha,0.0129668976669651
+maize,crop_irr_land_2015,20|PAKISTAN,year,Mha,0.131316827307039
+fruit,crop_irr_land_2015,1|AFGHAN_SOUTH,year,Mha,0.0
+fruit,crop_irr_land_2015,2|AFGHAN_NORTH,year,Mha,0.0
+fruit,crop_irr_land_2015,3|CHINA,year,Mha,0.0
+fruit,crop_irr_land_2015,4|CHINA,year,Mha,0.0
+fruit,crop_irr_land_2015,5|CHINA,year,Mha,0.0
+fruit,crop_irr_land_2015,6|INDIA_WEST,year,Mha,0.0
+fruit,crop_irr_land_2015,7|INDIA_WEST,year,Mha,0.0
+fruit,crop_irr_land_2015,8|INDIA_WEST,year,Mha,0.0
+fruit,crop_irr_land_2015,9|INDIA_EAST,year,Mha,0.0
+fruit,crop_irr_land_2015,10|INDIA_WEST,year,Mha,0.0
+fruit,crop_irr_land_2015,11|INDIA_WEST,year,Mha,0.0
+fruit,crop_irr_land_2015,12|PAKISTAN,year,Mha,7.75185367543746e-05
+fruit,crop_irr_land_2015,21|PAKISTAN,year,Mha,0.0
+fruit,crop_irr_land_2015,22|PAKISTAN,year,Mha,0.0
+fruit,crop_irr_land_2015,23|PAKISTAN,year,Mha,0.0020085085930057
+fruit,crop_irr_land_2015,24|PAKISTAN,year,Mha,0.0
+fruit,crop_irr_land_2015,13|PAKISTAN,year,Mha,0.0080744295362984
+fruit,crop_irr_land_2015,14|PAKISTAN,year,Mha,0.0
+fruit,crop_irr_land_2015,15|PAKISTAN,year,Mha,0.0
+fruit,crop_irr_land_2015,16|PAKISTAN,year,Mha,8.13347109736658e-05
+fruit,crop_irr_land_2015,17|PAKISTAN,year,Mha,2.65195157784942e-06
+fruit,crop_irr_land_2015,18|PAKISTAN,year,Mha,5.84627190501892e-06
+fruit,crop_irr_land_2015,19|PAKISTAN,year,Mha,0.0001219070021338
+fruit,crop_irr_land_2015,20|PAKISTAN,year,Mha,0.0
+vegetables,crop_irr_land_2015,1|AFGHAN_SOUTH,year,Mha,0.0024401386160104
+vegetables,crop_irr_land_2015,2|AFGHAN_NORTH,year,Mha,0.0106508091098333
+vegetables,crop_irr_land_2015,3|CHINA,year,Mha,0.0
+vegetables,crop_irr_land_2015,4|CHINA,year,Mha,0.0
+vegetables,crop_irr_land_2015,5|CHINA,year,Mha,0.0
+vegetables,crop_irr_land_2015,6|INDIA_WEST,year,Mha,0.0
+vegetables,crop_irr_land_2015,7|INDIA_WEST,year,Mha,7.26760850893564e-05
+vegetables,crop_irr_land_2015,8|INDIA_WEST,year,Mha,0.0124762622456683
+vegetables,crop_irr_land_2015,9|INDIA_EAST,year,Mha,0.060798014885407
+vegetables,crop_irr_land_2015,10|INDIA_WEST,year,Mha,0.0
+vegetables,crop_irr_land_2015,11|INDIA_WEST,year,Mha,0.0
+vegetables,crop_irr_land_2015,12|PAKISTAN,year,Mha,0.006805466747637
+vegetables,crop_irr_land_2015,21|PAKISTAN,year,Mha,0.0506319434111263
+vegetables,crop_irr_land_2015,22|PAKISTAN,year,Mha,0.0
+vegetables,crop_irr_land_2015,23|PAKISTAN,year,Mha,0.015702502903096
+vegetables,crop_irr_land_2015,24|PAKISTAN,year,Mha,0.0
+vegetables,crop_irr_land_2015,13|PAKISTAN,year,Mha,0.0149131269709582
+vegetables,crop_irr_land_2015,14|PAKISTAN,year,Mha,0.016211863798691
+vegetables,crop_irr_land_2015,15|PAKISTAN,year,Mha,0.0075198315383355
+vegetables,crop_irr_land_2015,16|PAKISTAN,year,Mha,0.0258716752478829
+vegetables,crop_irr_land_2015,17|PAKISTAN,year,Mha,0.0290842203370526
+vegetables,crop_irr_land_2015,18|PAKISTAN,year,Mha,0.0093349407219887
+vegetables,crop_irr_land_2015,19|PAKISTAN,year,Mha,0.0070080079793966
+vegetables,crop_irr_land_2015,20|PAKISTAN,year,Mha,0.0221152098119514

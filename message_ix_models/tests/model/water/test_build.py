@@ -100,6 +100,22 @@ def test_get_spec(request, test_context, nexus_set):
     assert "water_supply" in spec["remove"].set["level"]
     assert "water_supply" in spec["add"].set["level"]
 
+    if nexus_set == "nexus":
+        # Regression check: get_spec() must register food_demand.py's
+        # var_cost unit ("USD/kt") on spec["add"].set["unit"] whenever
+        # food_import_<crop> technologies are introduced -- apply_spec()
+        # only ever adds units listed there to the Platform before calling
+        # the data callback (model/build.py's apply_spec()), and this was
+        # previously missed entirely: a real build committed var_cost data
+        # in this unit without ever registering it, and failed with
+        # "ValueError: The unit 'USD/kt' does not exist in the database!"
+        # the first time add_par_data() tried to add it.
+        food_import_techs = [
+            t for t in spec["add"].set["technology"] if str(t).startswith("food_import_")
+        ]
+        if food_import_techs:
+            assert "USD/kt" in spec["add"].set["unit"]
+
 
 def test_cat_tec_cooling(request, test_context):
     test_context.model.regions = "R12"

@@ -37,16 +37,20 @@ __all__ = [
     "CROPS",
     "IRRIGATION_METHODS",
     "basin_region_map",
+    "country_group_of",
     "crop_land_commodity",
     "crop_tech_name",
     "crop_yield_commodity",
     "irr_tech_name",
     "rainfed_tech_name",
+    "read_bottom_up_crop_water_demand",
+    "read_crop_food_demand",
     "read_crop_input_data",
     "read_crop_irrigation_water",
     "read_crop_tech_data",
     "read_emission_factor",
     "read_irr_tech_data",
+    "read_irrigation_demand_growth",
     "read_land_availability",
 ]
 
@@ -69,6 +73,17 @@ def crop_land_commodity(crop: str) -> str:
 
 def crop_yield_commodity(crop: str) -> str:
     return f"{crop}_yield"
+
+
+def country_group_of(node: str) -> str:
+    """This basin's IRB country group, from the ``BCU_name`` convention
+    every data file here already uses (``"<id>|<REGION>"``, e.g.
+    ``"12|PAKISTAN"`` -> ``"PAKISTAN"``). Same split
+    ``build_irrigation_demand_lgrip30.region_group_of_irb`` uses -- kept
+    here too (not imported from there) since that module's top-level
+    surface pulls in an optional geopandas/rasterio dependency this
+    package doesn't otherwise need."""
+    return node.split("|", 1)[1]
 
 
 def _read_crop_csv(filename: str) -> pd.DataFrame:
@@ -132,6 +147,22 @@ def read_crop_irrigation_water(context: "Context") -> pd.DataFrame:
     return _filter_basins(_read_crop_csv("crop_irrigation_water_IRB.csv"), context)
 
 
+def read_bottom_up_crop_water_demand(context: "Context") -> pd.DataFrame:
+    """Bottom-up, crop-area x crop-water-requirement basin water demand
+    estimate (MCM/year), built from real SPAM2020 harvested-area data
+    crossed with this module's own :func:`read_crop_irrigation_water_annual`
+    -- a second, independent estimate alongside the historical-withdrawal
+    floor :mod:`.irrigation_tech` already uses, NOT a replacement for it.
+    See :mod:`.bottom_up_water_demand`'s module docstring for the full
+    method and its honest caveats (net crop water requirement, not gross
+    withdrawal; "fodder" in the source data is a stand-in for oilseeds/
+    tobacco, not real fodder).
+
+    Columns: node (BCU_name), value (MCM/year), unit.
+    """
+    return _filter_basins(_read_crop_csv("bottom_up_crop_water_demand_IRB.csv"), context)
+
+
 def read_crop_irrigation_water_annual(context: "Context") -> pd.DataFrame:
     """Crop water requirement, day-weighted from monthly MCM/day/Mha to an
     annual MCM/Mha total, per (crop, node, year).
@@ -153,6 +184,18 @@ def read_crop_tech_data() -> pd.DataFrame:
     applies to every Pakistan basin alike). Columns: crop, par, time, unit,
     value."""
     return _read_crop_csv("crop_tech_data_IRB.csv")
+
+
+def read_crop_food_demand(context: "Context") -> pd.DataFrame:
+    """Real, population-driven crop food-demand trajectory -- ported from
+    NEST's ``indus_demands_new.csv`` (``sector=='crop'``), see
+    ``pre_processing/build_crop_food_demand_IRB.py`` for the full
+    provenance. AFG/IND/PAK basins only (no China -- matches the source
+    data's real coverage), decadal years 2015-2060.
+
+    Columns: crop, node (BCU_name), year, value (kt), unit.
+    """
+    return _filter_basins(_read_crop_csv("crop_food_demand_IRB.csv"), context)
 
 
 #: Days per month (non-leap approximation -- matches the level of precision
@@ -207,3 +250,17 @@ def read_irr_tech_data() -> pd.DataFrame:
     dimension -- applies to every basin alike). Columns: irr_tech, par,
     time, unit, value."""
     return _read_crop_csv("irr_tech_data_IRB.csv")
+
+
+def read_irrigation_demand_growth() -> pd.DataFrame:
+    """Dimensionless irrigation-demand growth index per (IRB country group,
+    year), 1.0 at year 2015 -- see
+    ``pre_processing/build_irrigation_demand_growth_IRB.py`` for how it's
+    built (a GCAM-AgLU-style population/GDP index, reusing
+    ``build_irrigation_demand_lgrip30.gcam_demand_index``). Not filtered by
+    basin (there is no ``node`` column -- ``region`` is one of the 6 IRB
+    country groups, see :func:`country_group_of`).
+
+    Columns: region, year, demand_index.
+    """
+    return _read_crop_csv("irrigation_demand_growth_IRB.csv")

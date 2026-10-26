@@ -427,7 +427,15 @@ class Config:
         except AttributeError:
             # Compatibility with ixmp <3.5
             url = f"{scenario.model}/{scenario.scenario}/{scenario.version}"
-        self.url = f"ixmp://{scenario.platform.name}/{url}"
+        # ixmp.Platform.name is only set when the Platform was constructed
+        # with an explicit `name=` kwarg (i.e. a named platform config,
+        # e.g. Platform(name="default")); a Platform built from explicit
+        # backend_args instead (e.g. Platform(backend="jdbc", driver=...),
+        # as this project's own open_platform() does) never sets it, and
+        # Platform.__getattr__ has no further fallback -- so accessing it
+        # raises AttributeError, not a missing-value default.
+        platform_name = getattr(scenario.platform, "name", None) or "(unnamed)"
+        self.url = f"ixmp://{platform_name}/{url}"
 
     def write_debug_archive(self) -> None:
         """Write an archive containing the files listed in :attr:`debug_paths`.

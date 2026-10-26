@@ -11,9 +11,13 @@ import pandas as pd
 from message_ix_models import ScenarioInfo
 from message_ix_models.util import add_par_data
 
+from .crops.bottom_up_water_demand import add_bottom_up_crop_water_demand
+from .crops.food_demand import add_crop_demand
 from .crops.irrigation_tech import add_irrigation_techs
+from .crops.irrigation_source import add_irrigation_source_techs
 from .crops.land import add_crop_land_techs
 from .crops.rainfed import add_rainfed_techs
+from .fossil_groundwater import add_fossil_groundwater
 from .demands import add_irrigation_demand, add_sectoral_demands, add_water_availability
 from .infrastructure import add_desalination, add_infrastructure_techs
 from .irrigation import add_irr_structure
@@ -66,7 +70,17 @@ DATA_FUNCTIONS_COUNTRY: list[DataFunc] = [
     add_crop_land_techs,
     add_rainfed_techs,
     add_irrigation_techs,
+    add_irrigation_source_techs,  # OPT-IN (context.irrigation_source_layer): R irrigation
+    # sw/gw diversion layer -- see crops/irrigation_source.py's module docstring.
+    add_crop_demand,  # Real, population-driven crop food demand (indus_demands_new.csv port)
+    add_bottom_up_crop_water_demand,  # OPT-IN (context.bottom_up_water_demand_enabled):
+    # SPAM2020 crop-area x crop-water-requirement bottom-up relation,
+    # alongside (not replacing) add_irrigation_techs's historical-withdrawal
+    # floor. No-op (returns {}) unless explicitly enabled -- see
+    # crops/bottom_up_water_demand.py's module docstring.
     add_reservoir_storage,  # Reservoir/dam storage (GRanD + WAPDA data port)
+    add_fossil_groundwater,  # OPT-IN (context.fossil_gw_accounting / fossil_gw_limit):
+    # R fossil groundwater accounting + limit -- see fossil_groundwater.py.
 ]
 
 

@@ -133,12 +133,19 @@ def test_add_irrigation_techs(water_context, water_scenario, assert_message_para
     assert (rel_act["value"] > 0).all()
     assert set(rel_act["mode"]) == {"M1"}
 
-    # relation_lower is a real, positive historical floor, constant across
-    # years for a given basin (flat baseline, not growing/declining).
+    # relation_lower is a real, positive historical floor that now grows
+    # over the horizon -- scaled per year by a population/GDP demand-growth
+    # index (see build_irrigation_demand_growth_IRB.py) instead of staying
+    # flat at the historical baseline for every future year. Non-decreasing
+    # across years for a given basin (SSP2 population/GDP are both
+    # increasing over this horizon), not merely a single repeated value.
     rel_lo = result["relation_lower"]
     assert (rel_lo["value"] > 0).all()
     for relation, group in rel_lo.groupby("relation"):
-        assert group["value"].nunique() == 1, f"{relation}: floor should be flat across years"
+        ordered = group.sort_values("year_rel")["value"]
+        assert (ordered.diff().dropna() >= 0).all(), (
+            f"{relation}: floor should not decrease across years"
+        )
 
 
 def test_add_irrigation_techs_no_valid_basins(water_context, water_scenario):
@@ -159,10 +166,14 @@ def test_add_irrigation_techs_solves(test_context, monkeypatch):
     Numbers chosen so the answer is exact and hand-verifiable: water
     requirement 10 MCM/Mha, water_efficiency 0.5, field_efficiency_conv
     monkeypatched to 1.0 (no extra field loss) -> conveyance 0.5 ->
-    withdrawal rate 20 MCM/Mha. Historical floor 8 MCM -> relation forces
-    ACT >= 8/20 = 0.4 Mha. A small positive var_cost makes the LP minimize
-    ACT to exactly that floor (zero cost would leave it degenerate -- any
-    ACT >= 0.4 optimal).
+    withdrawal rate 20 MCM/Mha. Historical floor 8 MCM (no relaxation
+    factor) -> relation forces ACT >= 8/20 = 0.4 Mha. This basin's
+    ``region_group`` ("IRRTEST") has no entry in the demand-growth-index
+    CSV, so the growth-index multiplier correctly falls back to 1.0 (no
+    additional scaling) -- confirmed by the result landing on exactly
+    8/20 = 0.4, not some other value. A small positive var_cost makes the
+    LP minimize ACT to exactly that floor (zero cost would leave it
+    degenerate -- any ACT >= 0.4 optimal).
     """
     from message_ix import Scenario
 

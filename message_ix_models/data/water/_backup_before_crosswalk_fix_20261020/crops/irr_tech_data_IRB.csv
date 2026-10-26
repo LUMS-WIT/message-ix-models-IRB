@@ -1,0 +1,57 @@
+irr_tech,par,time,unit,value
+irr_drip,water_efficiency,year,,0.88
+irr_drip,electricity_intensity,year,kWh per m3,0.18
+irr_drip,electricity_flexibility,year,,-0.1
+irr_drip,inv_cost,year,USD per ha,2600.0
+irr_drip,var_cost,year,USD per ha,78.0
+irr_drip,fix_cost,year,USD per ha,52.0
+irr_drip,cap_factor,year,,0.9
+irr_drip,life_exp,year,year,10.0
+irr_flood,water_efficiency,year,,0.4
+irr_flood,electricity_intensity,year,kWh per m3,0.0
+irr_flood,electricity_flexibility,year,,0.0
+irr_flood,inv_cost,year,USD per ha,460.0
+irr_flood,var_cost,year,USD per ha,14.0
+irr_flood,fix_cost,year,USD per ha,10.0
+irr_flood,cap_factor,year,,0.9
+irr_flood,life_exp,year,year,100.0
+irr_sprinkler,water_efficiency,year,,0.7
+irr_sprinkler,electricity_intensity,year,kWh per m3,0.24
+irr_sprinkler,electricity_flexibility,year,,-0.1
+irr_sprinkler,inv_cost,year,USD per ha,1625.0
+irr_sprinkler,var_cost,year,USD per ha,49.0
+irr_sprinkler,fix_cost,year,USD per ha,33.0
+irr_sprinkler,cap_factor,year,,0.9
+irr_sprinkler,life_exp,year,year,10.0
+irr_canal_lining_flood,water_efficiency,year,,0.6
+irr_canal_lining_flood,electricity_intensity,year,kWh per m3,0.0
+irr_canal_lining_flood,electricity_flexibility,year,,0.0
+irr_canal_lining_flood,inv_cost,year,USD per ha,3110.0
+irr_canal_lining_flood,var_cost,year,USD per ha,94.0
+irr_canal_lining_flood,fix_cost,year,USD per ha,62.0
+irr_canal_lining_flood,cap_factor,year,,0.9
+irr_canal_lining_flood,life_exp,year,year,50.0
+irr_smart,water_efficiency,year,,0.75
+irr_smart,electricity_intensity,year,kWh per m3,0.328
+irr_smart,electricity_flexibility,year,,1.0
+irr_smart,inv_cost,year,USD per ha,2825.0
+irr_smart,var_cost,year,USD per ha,85.0
+irr_smart,fix_cost,year,USD per ha,57.0
+irr_smart,cap_factor,year,,0.9
+irr_smart,life_exp,year,year,10.0
+irr_drip_smart,water_efficiency,year,,0.95
+irr_drip_smart,electricity_intensity,year,kWh per m3,0.23
+irr_drip_smart,electricity_flexibility,year,,0.1
+irr_drip_smart,inv_cost,year,USD per ha,3100.0
+irr_drip_smart,var_cost,year,USD per ha,93.0
+irr_drip_smart,fix_cost,year,USD per ha,62.0
+irr_drip_smart,cap_factor,year,,0.9
+irr_drip_smart,life_exp,year,year,10.0
+irr_sprinkler_smart,water_efficiency,year,,0.8
+irr_sprinkler_smart,electricity_intensity,year,kWh per m3,0.29
+irr_sprinkler_smart,electricity_flexibility,year,,-0.1
+irr_sprinkler_smart,inv_cost,year,USD per ha,2125.0
+irr_sprinkler_smart,var_cost,year,USD per ha,64.0
+irr_sprinkler_smart,fix_cost,year,USD per ha,43.0
+irr_sprinkler_smart,cap_factor,year,,0.9
+irr_sprinkler_smart,life_exp,year,year,10.0
