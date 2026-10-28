@@ -251,15 +251,16 @@ def test_add_crop_land_techs_solves(test_context, monkeypatch):
 
 
 def test_cost_unit_conversion():
-    """Costs are converted from the source's USD/ha to USD/Mha (x1e6) --
-    see land.py module docstring for why. Sanity-checks the conversion
-    against the real committed crop_tech_data_IRB.csv rather than a
-    synthetic fixture, so a change to the source data or the conversion
-    constant surfaces here."""
+    """Costs stay numerically equal to the source's USD/ha: in the model's
+    cost unit (million USD) that is million USD/Mha -- see land.py module
+    docstring. Sanity-checks against the real committed
+    crop_tech_data_IRB.csv rather than a synthetic fixture, so a change to
+    the source data or the conversion constant surfaces here."""
     from message_ix_models.model.water.data.crops.common import read_crop_tech_data
+    from message_ix_models.model.water.data.crops.irrigation_tech import _HA_TO_MHA_COST as IRR
     from message_ix_models.model.water.data.crops.land import _HA_TO_MHA_COST
 
-    assert _HA_TO_MHA_COST == pytest.approx(1e6)
+    assert _HA_TO_MHA_COST == IRR == pytest.approx(1.0)
     df = read_crop_tech_data()
     wheat_inv = df[(df["crop"] == "wheat") & (df["par"] == "inv_cost")]["value"].iloc[0]
     assert wheat_inv > 0

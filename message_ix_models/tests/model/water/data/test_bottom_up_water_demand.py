@@ -107,6 +107,8 @@ def _build_and_solve(test_context, monkeypatch, bottom_up_enabled: bool, bottom_
     test_context.time = "year"
     test_context.type_reg = "global"
     test_context.valid_basins = {basin}
+    # river-only: the bottom-up relation reuses the crop techs' floor coefficients
+    test_context.irrigation_source_layer = False
     test_context.bottom_up_water_demand_enabled = bottom_up_enabled
     test_context.set_scenario(scen)
     test_context["water build info"] = ScenarioInfo(scen)

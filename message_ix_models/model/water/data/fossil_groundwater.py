@@ -19,10 +19,11 @@ water in ``LTS_nexus_debug`` v4). This module adds the R accounting:
   (:mod:`.crops.irrigation_source`, mode ``M2``) when that layer is on;
 - optionally, ``bound_emission`` on it per basin node and year.
 
-OPT-IN. ``context.fossil_gw_accounting = True`` adds the emission tracking
-only; ``context.fossil_gw_limit`` (a DataFrame with columns ``node``,
-``year``, ``value`` in MCM/year, e.g. from :func:`limit_from_baseline`) also
-adds the bound and implies accounting. Both default to off.
+Accounting is ON by default (``context.fossil_gw_accounting``, default
+True; set False to drop it). ``context.fossil_gw_limit`` (a DataFrame with
+columns ``node``, ``year``, ``value`` in MCM/year, e.g. from
+:func:`limit_from_baseline`) also adds the bound; it defaults to None (no
+limit), since it needs a solved baseline.
 
 The R policy's baseline shares (:data:`R_BASELINE_SHARE`) are decadal
 (2020-2060); each model year uses the nearest R year, and any year after
@@ -60,7 +61,7 @@ R_BASELINE_SHARE = {2020: 0.5, 2030: 0.1, 2040: 0.1, 2050: 0.1, 2060: 0.0}
 
 
 def fossil_gw_enabled(context: "Context") -> bool:
-    return bool(getattr(context, "fossil_gw_accounting", False)) or (
+    return bool(getattr(context, "fossil_gw_accounting", True)) or (
         getattr(context, "fossil_gw_limit", None) is not None
     )
 
@@ -114,6 +115,9 @@ def baseline_from_scenario(scen) -> pd.DataFrame:
     """Fossil groundwater extraction per node and year in a solved scenario
     built with accounting on (``EMISS`` of :data:`EMISSION`)."""
     emiss = scen.var("EMISS", filters={"emission": [EMISSION], "type_tec": [TYPE_TEC]})
+    # EMISS is also reported at aggregate (region/country) nodes; keep the
+    # basin nodes ("B<basin>") only, where the limit is applied.
+    emiss = emiss[emiss["node"].astype(str).str.startswith("B")]
     return emiss.rename(columns={"lvl": "value"})[["node", "year", "value"]]
 
 

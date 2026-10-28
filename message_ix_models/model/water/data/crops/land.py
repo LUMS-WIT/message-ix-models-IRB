@@ -52,13 +52,12 @@ Deliberate simplifications relative to the R model
   when disabled, omitted entirely (honest -- zero emissions tracked --
   rather than a fabricated placeholder value).
 - **Cost unit conversion.** ``crop_tech_data_IRB.csv`` labels
-  ``inv_cost``/``fix_cost``/``var_cost`` "USD per ha", but the real 2015
-  land-area data (and this technology's own capacity/activity) is in Mha
-  (1 Mha = 1e6 ha). The R model appears to apply the per-ha cost figure
-  directly against its Mha-denominated technology without converting --
-  this port instead multiplies by 1e6 for unit consistency with the
-  capacity data it's actually driven by, rather than preserving what looks
-  like a legacy unit inconsistency.
+  ``inv_cost``/``fix_cost``/``var_cost`` "USD per ha", while this
+  technology's capacity/activity is in Mha (1 Mha = 1e6 ha). The model's
+  cost unit is million USD (power plants: USD/kW x GW), and USD/ha equals
+  million USD/Mha numerically, so the per-ha figure is used unchanged, as
+  the R model does. (An earlier version multiplied by 1e6, which made crop
+  costs a million times too large relative to the energy system.)
 - **Annual (lft=1) vintaging dropped -- three attempts, real bugs found
   and fixed at each step, not a style choice.** The R model re-decides
   land allocation fresh every year (``lft = 1``). That's not used here.
@@ -137,8 +136,10 @@ log = logging.getLogger(__name__)
 #: this technology's historical capacity.
 _LAND_2015_PARS = ["crop_irr_land_2015", "crop_rainfed_land_2015"]
 
-#: USD/ha -> USD/Mha. See module docstring.
-_HA_TO_MHA_COST = 1e6
+#: USD/ha -> the model's cost unit per Mha. The model counts costs in million
+#: USD (power plants: USD/kW x GW), and USD/ha x 1e6 ha/Mha / 1e6 = million
+#: USD/Mha, so the per-ha figure is used unchanged -- as the R model does.
+_HA_TO_MHA_COST = 1.0
 
 #: kgCO2eq/ha -> tCO2eq/Mha (x1e6 ha->Mha, /1e3 kg->t -- net x1e3).
 _KG_HA_TO_T_MHA = 1e3

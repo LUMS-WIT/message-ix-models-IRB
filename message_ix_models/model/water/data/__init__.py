@@ -70,7 +70,7 @@ DATA_FUNCTIONS_COUNTRY: list[DataFunc] = [
     add_crop_land_techs,
     add_rainfed_techs,
     add_irrigation_techs,
-    add_irrigation_source_techs,  # OPT-IN (context.irrigation_source_layer): R irrigation
+    add_irrigation_source_techs,  # ON by default (context.irrigation_source_layer): R irrigation
     # sw/gw diversion layer -- see crops/irrigation_source.py's module docstring.
     add_crop_demand,  # Real, population-driven crop food demand (indus_demands_new.csv port)
     add_bottom_up_crop_water_demand,  # OPT-IN (context.bottom_up_water_demand_enabled):
@@ -79,7 +79,7 @@ DATA_FUNCTIONS_COUNTRY: list[DataFunc] = [
     # floor. No-op (returns {}) unless explicitly enabled -- see
     # crops/bottom_up_water_demand.py's module docstring.
     add_reservoir_storage,  # Reservoir/dam storage (GRanD + WAPDA data port)
-    add_fossil_groundwater,  # OPT-IN (context.fossil_gw_accounting / fossil_gw_limit):
+    add_fossil_groundwater,  # ON by default (context.fossil_gw_accounting; + fossil_gw_limit):
     # R fossil groundwater accounting + limit -- see fossil_groundwater.py.
 ]
 

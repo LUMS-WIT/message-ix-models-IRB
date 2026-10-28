@@ -30,7 +30,10 @@ def test_limit_from_baseline_r_rule():
 
 
 @pytest.mark.parametrize("water_context", IRB, indirect=True)
-def test_disabled_by_default(water_context, water_scenario):
+def test_accounting_on_by_default_and_can_be_switched_off(water_context, water_scenario):
+    assert fgw.FOSSIL_EXTRACT in fgw.fossil_gw_technology_names(water_context)
+    assert fgw.fossil_gw_type_years(water_context) == []  # no limit by default
+    water_context.fossil_gw_accounting = False
     assert fgw.fossil_gw_technology_names(water_context) == []
     assert fgw.add_fossil_groundwater(water_context) == {}
     assert fgw.fossil_gw_type_years(water_context) == []
@@ -39,6 +42,7 @@ def test_disabled_by_default(water_context, water_scenario):
 @pytest.mark.parametrize("water_context", IRB, indirect=True)
 def test_accounting_tags_every_fossil_source(water_context, water_scenario):
     water_context.fossil_gw_accounting = True
+    water_context.irrigation_source_layer = False
     assert fgw.fossil_gw_technology_names(water_context) == [fgw.FOSSIL_EXTRACT]
     ef = fgw.add_fossil_groundwater(water_context)["emission_factor"]
     assert set(ef["technology"]) == {fgw.FOSSIL_EXTRACT}

@@ -60,7 +60,10 @@ def test_irrigation_relation_names(water_context):
 def test_add_irrigation_techs(water_context, water_scenario, assert_message_params):
     """add_irrigation_techs() returns well-formed MESSAGE parameter data,
     using the real, committed crop/irrigation data -- including the
-    demand-pull relation."""
+    demand-pull relation (river-only configuration: with the irrigation
+    source layer on, the relation's coefficients live on the diversions --
+    see test_irrigation_source.py)."""
+    water_context.irrigation_source_layer = False
     result = add_irrigation_techs(context=water_context)
 
     assert_message_params(
@@ -218,7 +221,7 @@ def test_add_irrigation_techs_solves(test_context, monkeypatch):
                 {"irr_tech": "irr_flood", "par": "electricity_intensity", "value": 0.0},
                 {"irr_tech": "irr_flood", "par": "inv_cost", "value": 0.0},
                 {"irr_tech": "irr_flood", "par": "fix_cost", "value": 0.0},
-                {"irr_tech": "irr_flood", "par": "var_cost", "value": 1e-6},  # USD/ha -> tiny after x1e6
+                {"irr_tech": "irr_flood", "par": "var_cost", "value": 1e-6},  # tiny tie-breaker
             ]
         ),
     )
@@ -260,6 +263,7 @@ def test_add_irrigation_techs_solves(test_context, monkeypatch):
     test_context.time = "year"
     test_context.type_reg = "global"
     test_context.valid_basins = {basin}
+    test_context.irrigation_source_layer = False  # river-only: crop techs draw surfacewater_basin
     test_context.set_scenario(scen)
     test_context["water build info"] = ScenarioInfo(scen)
 
@@ -355,24 +359,9 @@ def test_withdrawal_recharge_arithmetic_invariant(water_context, water_scenario)
     """
     from message_ix_models.model.water.data.crops.common import CONFIG, read_irr_tech_data
 
-    result = add_irrigation_techs(context=water_context)
-    inp = result["input"]
-    out = result["output"]
-
-    water_in = inp[inp["commodity"] == "surfacewater_basin"][
-        ["technology", "node_loc", "year_act", "value"]
-    ].rename(columns={"value": "withdrawal"})
-    gw_out = out[out["commodity"] == "groundwater_basin"][
-        ["technology", "node_loc", "year_act", "value"]
-    ].rename(columns={"value": "recharge"})
-
-    merged = water_in.merge(gw_out, on=["technology", "node_loc", "year_act"], how="inner")
-    assert not merged.empty
-
-    # For every row, recharge / withdrawal == 1 - conveyance_efficiency
-    # (the loss fraction) -- derive conveyance per technology from the
-    # real irr_tech_data.csv rather than hardcoding a method's efficiency,
-    # so this stays correct as the underlying data changes.
+    # Derive conveyance per technology from the real irr_tech_data.csv rather
+    # than hardcoding a method's efficiency, so this stays correct as the
+    # underlying data changes.
     irr_tech_df = read_irr_tech_data().set_index(["irr_tech", "par"])["value"]
     field_eff = CONFIG["field_efficiency_conv"]
 
@@ -383,10 +372,51 @@ def test_withdrawal_recharge_arithmetic_invariant(water_context, water_scenario)
                 return tech[: -(len(crop) + 1)]
         raise ValueError(tech)
 
-    for row in merged.itertuples():
-        method = method_of(row.technology)
-        water_eff = irr_tech_df[(method, "water_efficiency")]
-        conveyance = water_eff * field_eff
-        # raw_requirement = withdrawal * conveyance;
-        # recharge = raw_requirement * (1/conveyance - 1) = withdrawal * (1 - conveyance).
-        assert row.recharge == pytest.approx(row.withdrawal * (1 - conveyance), rel=1e-6)
+    # Source layer off: river water at water_efficiency x field_efficiency_conv.
+    # On: farm-gate water at water_efficiency only (the diversions carry the
+    # conveyance loss).
+    for source_layer, commodity in ((False, "surfacewater_basin"), (True, "irrigation_water")):
+        water_context.irrigation_source_layer = source_layer
+        result = add_irrigation_techs(context=water_context)
+        inp = result["input"]
+        out = result["output"]
+
+        water_in = inp[inp["commodity"] == commodity][
+            ["technology", "node_loc", "year_act", "value"]
+        ].rename(columns={"value": "withdrawal"})
+        gw_out = out[out["commodity"] == "groundwater_basin"][
+            ["technology", "node_loc", "year_act", "value"]
+        ].rename(columns={"value": "recharge"})
+
+        merged = water_in.merge(gw_out, on=["technology", "node_loc", "year_act"], how="inner")
+        assert not merged.empty
+
+        for row in merged.itertuples():
+            water_eff = irr_tech_df[(method_of(row.technology), "water_efficiency")]
+            conveyance = water_eff if source_layer else water_eff * field_eff
+            # raw_requirement = withdrawal * conveyance;
+            # recharge = raw_requirement * (1/conveyance - 1) = withdrawal * (1 - conveyance).
+            # For example, flood (0.40): 81% returns with the layer off, 60% with it on.
+            assert row.recharge == pytest.approx(row.withdrawal * (1 - conveyance), rel=1e-6)
+
+
+@pytest.mark.parametrize(
+    "water_context",
+    [{**water_params("R12"), "regions": "IRB"}],
+    indirect=True,
+)
+def test_floor_flat_at_historical_by_default(water_context, water_scenario):
+    """config.yaml ``irrigation_floor_growth: false``: every year's floor is
+    the basin's observed historical sw+gw withdrawal, not scaled by the
+    population/GDP growth index."""
+    from message_ix_models.model.water.data.crops.common import (
+        CONFIG,
+        read_historical_irrigation_withdrawals,
+    )
+
+    assert CONFIG["irrigation_floor_growth"] is False
+    lo = add_irrigation_techs(context=water_context)["relation_lower"]
+    hist = read_historical_irrigation_withdrawals(water_context).groupby("node")["value"].sum()
+    expected = lo["node_rel"].str[1:].map(hist)
+    assert expected.notna().all()
+    assert lo["value"].to_numpy() == pytest.approx(expected.to_numpy())

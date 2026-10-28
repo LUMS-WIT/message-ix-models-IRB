@@ -56,7 +56,16 @@ irrigation_methods:
 field_efficiency: 0.85
 water_course_efficiency: 0.55
 # = field_efficiency * water_course_efficiency, precomputed for convenience.
+# Used only with the irrigation source layer off: with it on, the diversion
+# technologies carry the conveyance loss and the method's water_efficiency
+# is the field loss (see crops/irrigation_source.py).
 field_efficiency_conv: 0.4675
+
+# Scale the historical irrigation-withdrawal floor (hist_irr_withdrawal_<basin>)
+# by the population/GDP demand-growth index (irrigation_demand_growth_IRB.csv).
+# false: the floor stays at the observed historical sw+gw withdrawals in every
+# year. true: it grows with the index (Pakistan x1.47 by 2030, x2.49 by 2050).
+irrigation_floor_growth: false
 
 # On-farm machinery energy intensity (R model: Rao et al. 2018 average).
 # NOT currently wired into any technology -- dropped from scope (see

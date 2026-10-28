@@ -414,10 +414,11 @@ def get_spec(context: Context) -> Mapping[str, ScenarioInfo]:
         if bottom_up_relations:
             add.set["relation"].extend(bottom_up_relations)
 
-        # Irrigation sw/gw diversion layer: OPT-IN (context.irrigation_source_layer)
+        # Irrigation sw/gw diversion layer: ON by default (context.irrigation_source_layer)
         # -- see crops/irrigation_source.py's module docstring.
         from .data.crops.irrigation_source import (
             FOSSIL_MODE,
+            IRRIGATION_WATER,
             irrigation_source_commodity_names,
             irrigation_source_level_names,
             irrigation_source_technology_names,
@@ -432,9 +433,12 @@ def get_spec(context: Context) -> Mapping[str, ScenarioInfo]:
             add.set["level"].extend(irrigation_source_level_names())
             add.set["mode"].append(FOSSIL_MODE)
             add.set["unit"].append("USD/MCM")
+            # Diverted water must be used by crop irrigation (supply == use),
+            # so the withdrawal floor cannot be met by diverting and dumping.
+            add.set["balance_equality"].append(list(IRRIGATION_WATER))
 
-        # Fossil groundwater accounting/limit: OPT-IN (context.fossil_gw_accounting
-        # or context.fossil_gw_limit) -- see fossil_groundwater.py.
+        # Fossil groundwater accounting (ON by default, context.fossil_gw_accounting) / limit
+        # (context.fossil_gw_limit) -- see fossil_groundwater.py.
         from .data import fossil_groundwater as _fgw
 
         fossil_techs = _fgw.fossil_gw_technology_names(context)

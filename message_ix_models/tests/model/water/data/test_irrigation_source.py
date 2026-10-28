@@ -16,8 +16,8 @@ IRB = [{**water_params("R12"), "regions": "IRB"}]
 
 
 def test_unit_conversions():
-    # R: million USD per (MCM/day); here: USD per (MCM/year)
-    assert src.musd_per_mcm_day_to_usd_per_mcm_year(57) == pytest.approx(57e6 / 365)
+    # R: million USD per (MCM/day); here: million USD per (MCM/year), the model's cost unit
+    assert src.musd_per_mcm_day_to_musd_per_mcm_year(57) == pytest.approx(57 / 365)
     # R: MW per (MCM/day) == 0.024 * value kWh/m3; here: GWa per MCM
     assert src.mw_per_mcm_day_to_gwa_per_mcm(6) == pytest.approx(6 / 365 / 1e3)
     # 6 MW per MCM/day is 0.144 kWh/m3; 1 kWh/m3 = 1/8760 GWa/MCM
@@ -39,7 +39,9 @@ def test_tech_data_matches_r_model():
 
 
 @pytest.mark.parametrize("water_context", IRB, indirect=True)
-def test_disabled_by_default(water_context, water_scenario):
+def test_enabled_by_default_and_can_be_switched_off(water_context, water_scenario):
+    assert set(src.irrigation_source_technology_names(water_context)) == set(src.TECH_DATA)
+    water_context.irrigation_source_layer = False
     assert src.irrigation_source_technology_names(water_context) == []
     assert src.add_irrigation_source_techs(water_context) == {}
 
@@ -59,7 +61,7 @@ def test_add_irrigation_source_techs(water_context, water_scenario, assert_messa
     assert_message_params(
         result,
         expected_keys=["input", "output", "technical_lifetime", "construction_time",
-                       "capacity_factor", "inv_cost", "fix_cost", "relation_activity"],
+                       "capacity_factor", "inv_cost", "fix_cost", "var_cost", "relation_activity"],
     )
     inp, out = result["input"], result["output"]
 
@@ -86,9 +88,16 @@ def test_add_irrigation_source_techs(water_context, water_scenario, assert_messa
     elec = gw.loc[gw["commodity"] == "electr", "value"]
     assert elec.unique().tolist() == pytest.approx([16 / 365 / 1e3])
 
-    # Costs converted from R units.
+    # Only the fossil mode carries the depletion tie-break cost.
+    vc = result["var_cost"]
+    assert set(vc["mode"]) == {src.FOSSIL_MODE}
+    assert set(vc["technology"]) == {"irrigation_gw_diversion", "smart_irrigation_gw_diversion"}
+    assert set(vc["value"]) == {src.FOSSIL_DEPLETION_COST}
+
+    # Costs converted from R units (million USD per MCM/day -> per MCM/year).
     inv = result["inv_cost"]
-    assert inv.loc[inv["technology"] == "irrigation_sw_diversion", "value"].unique().tolist() ==         pytest.approx([57e6 / 365])
+    assert inv.loc[inv["technology"] == "irrigation_sw_diversion", "value"].unique().tolist() == \
+        pytest.approx([57 / 365])
 
     # This fixture's horizon has no pre-model year, so no historical
     # capacity (checked in the solve test, whose horizon has one).
@@ -107,9 +116,14 @@ def test_add_irrigation_source_techs(water_context, water_scenario, assert_messa
 
 @pytest.mark.parametrize("water_context", IRB, indirect=True)
 def test_irrigation_tech_with_source_layer(water_context, water_scenario):
-    """With the layer on, crop techs draw farm-gate water (same coefficient)
-    and leave the floor's coefficients to the diversions; the floor itself
-    (relation_lower) is unchanged."""
+    """With the layer on, crop techs draw farm-gate water at crop water /
+    water_efficiency -- without R's field_efficiency_conv, since the
+    diversions carry the conveyance loss -- and leave the floor's
+    coefficients to the diversions; the floor itself (relation_lower) is
+    unchanged."""
+    from message_ix_models.model.water.data.crops.common import CONFIG
+
+    water_context.irrigation_source_layer = False
     off = add_irrigation_techs(water_context)
     water_context.irrigation_source_layer = True
     on = add_irrigation_techs(water_context)
@@ -119,10 +133,11 @@ def test_irrigation_tech_with_source_layer(water_context, water_scenario):
         return i[i["commodity"] == commodity].drop(columns=["commodity", "level"])
 
     assert water_rows(on, "surfacewater_basin").empty
-    pd.testing.assert_frame_equal(
-        water_rows(off, "surfacewater_basin").reset_index(drop=True),
-        water_rows(on, "irrigation_water").reset_index(drop=True),
-    )
+    off_w = water_rows(off, "surfacewater_basin").reset_index(drop=True)
+    on_w = water_rows(on, "irrigation_water").reset_index(drop=True)
+    pd.testing.assert_frame_equal(off_w.drop(columns="value"), on_w.drop(columns="value"))
+    assert on_w["value"].to_numpy() == pytest.approx(
+        off_w["value"].to_numpy() * CONFIG["field_efficiency_conv"])
     assert "relation_activity" in off and "relation_activity" not in on
     pd.testing.assert_frame_equal(off["relation_lower"], on["relation_lower"])
 

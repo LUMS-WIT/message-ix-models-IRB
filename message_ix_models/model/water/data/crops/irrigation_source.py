@@ -13,9 +13,10 @@ technology                              R lines      water path
 ``irrigation_desal_seawater``           11662-11738  seawater -> farm gate
 ======================================  ===========  ===============================
 
-OPT-IN (``context.irrigation_source_layer``, default False): with it off,
-nothing here is registered or built and :mod:`.irrigation_tech` keeps
-drawing ``surfacewater_basin`` directly, exactly as before.
+ON by default (``context.irrigation_source_layer``, default True): every
+irrigation water source is available. Set it to False to build the older
+river-only configuration, in which nothing here is registered and
+:mod:`.irrigation_tech` draws ``surfacewater_basin`` directly.
 
 Why this layer exists
 ---------------------
@@ -28,8 +29,12 @@ although roughly a third of the historical-withdrawal floor it is held to
 is groundwater pumping. With the layer on:
 
 - ``irr_<method>_<crop>`` takes ``irrigation_water`` / ``irrigation_final``
-  instead (same coefficient -- it already equals the R model's farm-gate
-  requirement, ``crop water / (water_efficiency * field_efficiency_conv)``).
+  instead, at ``crop water / water_efficiency``: the diversions here already
+  carry the conveyance loss (25% canal seepage), and ``water_efficiency`` is
+  the method's own field application efficiency, so the R model's extra
+  ``field_efficiency_conv`` (0.85 field x 0.55 watercourse, "assuming all
+  irrigation is basically flood") would count both losses a second time and
+  send ~80% of farm-gate water back to the aquifer for flood irrigation.
 - The ``hist_irr_withdrawal_<basin>`` floor is applied to the diversion
   technologies (coefficient 1 per MCM withdrawn at the source), which is
   what its source data (``irrigation_sw_diversion`` +
@@ -51,9 +56,10 @@ Commodity/level mapping (R -> this model)
 Units
 -----
 The R model uses flows in MCM/day, electricity in MW and costs in million
-USD2010; this model uses MCM/year, GWa and USD:
+USD2010; this model uses MCM/year, GWa and million USD (its cost unit:
+power plants are USD/kW x GW):
 
-- costs: ``R value * 1e6 / 365`` -> USD per (MCM/year) of capacity
+- costs: ``R value / 365`` -> million USD per (MCM/year) of capacity
 - electricity: ``R MW per (MCM/day) / 365 / 1e3`` -> GWa per MCM
 
 Deliberate simplifications
@@ -67,6 +73,10 @@ Deliberate simplifications
 - Historical capacity is seeded only for the two conventional diversions,
   from the same historical sw/gw withdrawals as the floor (annual value /
   capacity factor), at the one genuine pre-model vintage.
+- The fossil mode (``M2``) carries a small ``var_cost``
+  (:data:`FOSSIL_DEPLETION_COST`). In R both groundwater paths cost nothing,
+  so without a fossil limit the split between renewable and fossil pumping
+  is arbitrary; this makes the model use renewable recharge first.
 """
 
 import logging
@@ -91,6 +101,10 @@ GROUND = ("groundwater_basin", "water_avail_basin")
 
 #: Mode of a groundwater diversion that pumps non-renewable (fossil) water.
 FOSSIL_MODE = "M2"
+
+#: var_cost of the fossil mode, million USD per MCM (0.001 USD/m3): a
+#: tie-break so renewable groundwater is pumped before the aquifer is mined.
+FOSSIL_DEPLETION_COST = 0.001
 
 #: R ``basin_msggdx_technologies.r`` parameters, in R units (MCM/day,
 #: MW per MCM/day, million USD2010 per MCM/day of capacity).
@@ -136,8 +150,14 @@ FLOOR_TECHS = [
 ]
 
 
-def musd_per_mcm_day_to_usd_per_mcm_year(value: float) -> float:
-    return value * 1e6 / 365
+def musd_per_mcm_day_to_musd_per_mcm_year(value: float) -> float:
+    """R million USD per (MCM/day) -> million USD per (MCM/year).
+
+    The model's cost unit is million USD (power plants: USD/kW x GW; IIASA's
+    own water techs, e.g. extract_surfacewater ~0.16 per MCM/year), so the
+    R value is only rescaled from a daily to an annual flow.
+    """
+    return value / 365
 
 
 def mw_per_mcm_day_to_gwa_per_mcm(value: float) -> float:
@@ -145,7 +165,7 @@ def mw_per_mcm_day_to_gwa_per_mcm(value: float) -> float:
 
 
 def irrigation_source_enabled(context: "Context") -> bool:
-    return bool(getattr(context, "irrigation_source_layer", False))
+    return bool(getattr(context, "irrigation_source_layer", True))
 
 
 def _valid_basins(context: "Context") -> set[str]:
@@ -245,6 +265,10 @@ def add_irrigation_source_techs(context: "Context") -> dict[str, pd.DataFrame]:
             io("output", mode, *IRRIGATION_WATER, spec["efficiency"], "MCM")
             if spec.get("seepage"):
                 io("output", mode, *GROUND, spec["seepage"], "MCM")
+            if mode == FOSSIL_MODE:
+                add("var_cost", make_df("var_cost", **common, mode=mode,
+                                        value=FOSSIL_DEPLETION_COST, unit="USD/MCM")
+                    .pipe(broadcast, time=sub_time))
 
         flat = dict(technology=tech, node_loc=node_loc)
         add("technical_lifetime", make_df("technical_lifetime", **flat, value=spec["lifetime"],
@@ -255,10 +279,10 @@ def add_irrigation_source_techs(context: "Context") -> dict[str, pd.DataFrame]:
         add("capacity_factor", make_df("capacity_factor", **flat, value=spec["cap_factor"],
                                        unit="%").pipe(broadcast, yv_ya, time=sub_time))
         add("inv_cost", make_df("inv_cost", **flat,
-                                value=musd_per_mcm_day_to_usd_per_mcm_year(spec["inv_cost"]),
+                                value=musd_per_mcm_day_to_musd_per_mcm_year(spec["inv_cost"]),
                                 unit="USD/MCM").pipe(broadcast, year_vtg=year_vtg))
         add("fix_cost", make_df("fix_cost", **flat,
-                                value=musd_per_mcm_day_to_usd_per_mcm_year(spec["fix_cost"]),
+                                value=musd_per_mcm_day_to_musd_per_mcm_year(spec["fix_cost"]),
                                 unit="USD/MCM").pipe(broadcast, yv_ya))
 
         hist_years = [y for y in year_vtg if y < firstyear]

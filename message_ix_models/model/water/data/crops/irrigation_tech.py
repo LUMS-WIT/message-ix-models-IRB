@@ -25,7 +25,10 @@ method for this crop):
   ``water_efficiency`` is real, per-method data (``irr_tech_data_IRB.csv``,
   0.40 for flood up to 0.95 for smart drip); ``field_efficiency_conv``
   (0.4675) is the fixed field/conveyance-loss constant from
-  ``config.yaml``. Reuses the existing **basin-tier**
+  ``config.yaml``. With the irrigation source layer on (the default) the
+  water is farm-gate ``irrigation_water`` at ``1 / water_efficiency`` only,
+  since the diversions carry the conveyance loss (:mod:`.irrigation_source`).
+  With it off, reuses the existing **basin-tier**
   ``surfacewater_basin`` / ``water_avail_basin`` commodity (matches
   :mod:`.network`), *not* the region-tier ``freshwater``/``water_supply``
   pair the old simplified ``irrigation_cereal`` etc. use -- see the
@@ -247,8 +250,9 @@ from .rainfed import GENERIC_LAND_COMMODITY
 
 log = logging.getLogger(__name__)
 
-#: USD/ha -> USD/Mha. See land.py module docstring for the same conversion.
-_HA_TO_MHA_COST = 1e6
+#: USD/ha -> million USD/Mha (the model's cost unit): numerically unchanged.
+#: See land.py module docstring for the same conversion.
+_HA_TO_MHA_COST = 1.0
 
 
 def _sanitize(basin: str) -> str:
@@ -343,7 +347,12 @@ def add_irrigation_techs(context: "Context") -> dict[str, pd.DataFrame]:
         elec_intensity = float(params.get("electricity_intensity", 0.0) or 0.0)
         cap_factor = float(params.get("cap_factor", 1.0) or 1.0)
         lifetime = float(life_exp)
-        conveyance = water_eff * field_eff
+        # Source layer on: the diversions carry the conveyance loss and
+        # water_efficiency is the method's own field application efficiency,
+        # so R's field_efficiency_conv (which "assumes all irrigation is
+        # basically flood") would count both a second time -- see
+        # irrigation_source.py.
+        conveyance = water_eff if source_layer else water_eff * field_eff
 
         def cost(par: str) -> float:
             return float(params.get(par, 0.0) or 0.0) * _HA_TO_MHA_COST
@@ -591,13 +600,16 @@ def add_irrigation_techs(context: "Context") -> dict[str, pd.DataFrame]:
 
         # Demand-growth index (population/GDP, GCAM-AgLU-style), per IRB
         # country group/year -- see build_irrigation_demand_growth_IRB.py.
-        # Scales the historical floor up over the horizon instead of
-        # leaving it pinned at the ~2015 historical value for every future
-        # year. 1.0 at the growth data's own base year (2015) and wherever
-        # a group/year has no data (missing growth CSV, or a year outside
-        # its range), so the floor degrades to today's flat behavior rather
-        # than blocking the build.
-        growth_df = read_irrigation_demand_growth()
+        # OFF by default (config.yaml ``irrigation_floor_growth``): the floor
+        # stays at the observed historical withdrawals. Scaling forced
+        # *withdrawals* by population/GDP (Pakistan x1.47 by 2030, x2.49 by
+        # 2050) pushed the floor far past the basin's water (293 km3 in 2030
+        # against ~202 observed), so the model had to pump the difference.
+        # When on: 1.0 at the growth data's own base year (2015) and wherever
+        # a group/year has no data, so the floor degrades to flat behavior
+        # rather than blocking the build.
+        growth_on = bool(CONFIG.get("irrigation_floor_growth", False))
+        growth_df = read_irrigation_demand_growth() if growth_on else pd.DataFrame()
         if growth_df.empty:
             growth_lookup: pd.Series = pd.Series(dtype=float)
             growth_years_by_region: dict = {}
