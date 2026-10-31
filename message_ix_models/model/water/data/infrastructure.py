@@ -17,6 +17,7 @@ from message_ix_models.model.water.utils import (
     GWa_KM3_TO_GWa_MCM,
     get_vintage_and_active_years,
     kWh_m3_TO_GWa_MCM,
+    region_node_map,
 )
 from message_ix_models.util import (
     broadcast,
@@ -300,9 +301,7 @@ def add_infrastructure_techs(context: "Context") -> dict[str, pd.DataFrame]:
     #     else f"{context.regions}_" + df_node["REGION"].astype(str)
     # )
     # Map raw CSV REGION names to MESSAGEix node IDs (must match IRB.yaml / build.py)
-    # Map raw CSV REGION names to MESSAGEix node IDs (must match IRB.yaml / build.py)
-    REGION_NODE_MAP = {"PAKISTAN": "R12_PAK"}
-    df_node["region"] = df_node["REGION"].replace(REGION_NODE_MAP)
+    df_node["region"] = df_node["REGION"].replace(region_node_map(context))
 
     # Reading water distribution mapping from csv
     path = package_data_path("water", "infrastructure", "water_distribution.csv")
@@ -802,11 +801,10 @@ def add_desalination(context: "Context") -> dict[str, pd.DataFrame]:
     df_node["clean_basin"] = df_node["BCU_name"].astype(str).str.replace("|", "_", regex=False)
     df_node["mode"] = "M" + df_node["clean_basin"]
     # Map raw CSV REGION names to MESSAGEix node IDs (must match IRB.yaml / build.py)
-    REGION_NODE_MAP = {"PAKISTAN": "R12_PAK"}
     df_node["region"] = (
         context.map_ISO_c[context.regions]
         if context.type_reg == "country"
-        else df_node["REGION"].replace(REGION_NODE_MAP)
+        else df_node["REGION"].replace(region_node_map(context))
     )
 
     # Filter to basins that exist after filtering

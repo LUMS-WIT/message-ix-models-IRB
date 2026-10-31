@@ -452,6 +452,15 @@ def get_spec(context: Context) -> Mapping[str, ScenarioInfo]:
                 add.set["type_year"].append(type_year)
                 add.set["cat_year"].append([type_year, int(type_year)])
 
+        # Costed electricity supply at the non-Pakistani region nodes (ON by
+        # default, context.external_electricity) -- see external_electricity.py.
+        from .data.external_electricity import external_electricity_technology_names
+
+        ext_elec_techs = external_electricity_technology_names(context)
+        if ext_elec_techs:
+            add.set["technology"].extend(ext_elec_techs)
+            add.set["unit"].append("USD/GWa")
+
         # Reservoir/dam storage technologies (real-data port of the legacy
         # R model's storage_capacity.r, using MESSAGEix's native storage
         # formulation) -- data-driven per basin like the network/crop
@@ -740,8 +749,9 @@ def map_basin(context: Context) -> Mapping[str, ScenarioInfo]:
     # Translate CSV REGION names to MESSAGEix node IDs where they differ.
     # IRB.yaml uses R12_PAK (not PAKISTAN) as the Pakistan region node,
     # so the CSV value "PAKISTAN" must be mapped before building map_node.
-    REGION_NODE_MAP = {"PAKISTAN": "R12_PAK"}
-    df["node_parent_region"] = df["REGION"].replace(REGION_NODE_MAP)
+    from .utils import region_node_map
+
+    df["node_parent_region"] = df["REGION"].replace(region_node_map(context))
 
     # map nodes as per dimensions
     df1 = pd.DataFrame({"node_parent": df["node_parent_region"], "node": df["node"]})

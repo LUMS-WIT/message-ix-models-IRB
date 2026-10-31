@@ -36,8 +36,12 @@ method for this crop):
 - **Electricity**, proportional to the withdrawal rate via the method's
   real ``electricity_intensity`` (kWh/m3, converted to GWa/MCM). Reuses
   the existing ``electr`` / ``final`` commodity (the only electricity
-  commodity in the repo). Omitted entirely for methods with zero
-  electricity intensity (gravity-fed flood/canal-lining methods).
+  commodity in the repo), drawn from the basin's region node
+  (:func:`.irrigation_source.electricity_origin`: R12_PAK for Pakistan,
+  the costed external supply of
+  :mod:`~message_ix_models.model.water.data.external_electricity` elsewhere).
+  Omitted entirely for methods with zero electricity intensity
+  (gravity-fed flood/canal-lining methods).
 
 Produces:
 
@@ -245,7 +249,7 @@ from .common import (
     read_irr_tech_data,
     read_irrigation_demand_growth,
 )
-from .irrigation_source import IRRIGATION_WATER, irrigation_source_enabled
+from .irrigation_source import IRRIGATION_WATER, electricity_origin, irrigation_source_enabled
 from .rainfed import GENERIC_LAND_COMMODITY
 
 log = logging.getLogger(__name__)
@@ -327,6 +331,7 @@ def add_irrigation_techs(context: "Context") -> dict[str, pd.DataFrame]:
     # from the diversion technologies at the farm gate instead of straight
     # from the river, and the floor is carried by those diversions.
     source_layer = irrigation_source_enabled(context)
+    elec_origin = electricity_origin(context, sorted(valid_basins))
     water_in = IRRIGATION_WATER if source_layer else ("surfacewater_basin", "water_avail_basin")
 
     inp_frames, out_frames = [], []
@@ -455,15 +460,18 @@ def add_irrigation_techs(context: "Context") -> dict[str, pd.DataFrame]:
                 .pipe(same_time)
             )
             if elec_intensity > 0:
+                # Electricity comes from the region's energy node (R12_PAK for
+                # Pakistan, the costed external supply elsewhere), as for the
+                # diversions: basin nodes generate no electricity.
                 inp_frames.append(
                     make_df(
                         "input", technology=tech, node_loc=base["node_loc"],
+                        node_origin=base["node_loc"].map(elec_origin),
                         year_vtg=base["year_vtg"], year_act=base["year_act"],
                         value=base["elec_gwa_per_mha"], unit="GWa",
                         level="final", commodity="electr", mode="M1",
                     )
                     .pipe(broadcast, time=sub_time)
-                    .pipe(same_node)
                     .pipe(same_time)
                 )
 

@@ -46,7 +46,7 @@ import pandas as pd
 from message_ix import make_df
 
 from message_ix_models import Context
-from message_ix_models.model.water.utils import REGION_NODE_MAP
+from message_ix_models.model.water.utils import region_node_map
 from message_ix_models.util import broadcast, package_data_path
 
 
@@ -92,7 +92,7 @@ def add_irr_structure(context: "Context") -> dict[str, pd.DataFrame]:
     #     else f"{context.regions}_" + df_node["REGION"].astype(str)
     # )
     # Map raw CSV REGION names to MESSAGEix node IDs (must match IRB.yaml / build.py)
-    df_node["region"] = df_node["REGION"].replace(REGION_NODE_MAP)
+    df_node["region"] = df_node["REGION"].replace(region_node_map(context))
     # Reference to the water configuration
     info = context["water build info"]
 

@@ -1,0 +1,128 @@
+# NEST-Pakistan workflow configuration.
+#
+# Every assumption the workflow applies lives here, so a run is fully
+# described by this file plus any `--set key=value` overrides given on the
+# command line (see `mix-models nest-pak --help`). Copy this file and pass it
+# with `--config my.yaml` to keep a scenario's settings with its results.
+
+# ---------------------------------------------------------------- platform
+platform:
+  # Local HSQLDB database. "~" expands to the user's home directory.
+  backend: jdbc
+  driver: hsqldb
+  path: ~/.local/share/ixmp/localdb/default
+  # HSQLDB holds the whole database in the Java heap (about 3 GB on disk).
+  jvmargs: ["-Xmx10G"]
+  # Directory holding gams.exe; prepended to PATH and set as IXMP_GAMS_PATH.
+  gams_dir: C:/GAMS/40
+
+model: "MESSAGEix-Pakistan 1"
+
+# ------------------------------------------------------------------- basin
+# The river basin the water/land module is built for. Every basin-specific
+# input file is named *_<code>.csv (see `mix-models nest-pak data --basin
+# <code>` and DATA_REQUIREMENTS.md for what a new basin needs).
+basin:
+  code: IRB
+  name: Indus River Basin
+  # Delineation REGION -> node of a national energy model. Regions listed here
+  # draw electricity from that model; all others get the costed external supply.
+  region_node_map: {PAKISTAN: R12_PAK}
+
+# ------------------------------------------------- 1. national energy model
+energy:
+  scenario: LTS
+  # Excel workbook with the full Pakistan energy model (sets + parameters).
+  # Relative paths are resolved against the NEST-Pakistan repository given by
+  # `nest_repo`, or the current directory.
+  excel: NEST_IRB/Energy Model Script/MESSAGEix-Pakistan-CurPol.xlsx
+  # Constraints removed from the energy baseline before the nexus is added
+  # (they bind once water costs enter the system). Parameter -> technologies.
+  relax:
+    bound_activity_up: [coal_imp]
+    growth_activity_lo: [coal_i]
+    initial_activity_lo: [coal_i]
+    bound_activity_lo: [coal_i, nuc_hc, gas_cc, coal_adv, gas_ppl, coal_ppl_u, CH4s_TCE, CO2s_TCE, CO2t_TCE]
+    bound_new_capacity_up: [wind_ppl, nuc_hc]
+
+nest_repo: ~/Documents/WIT-WORK/NEST-Pakistan
+
+# ------------------------------------------------ 2. NEST water/land module
+nexus:
+  scenario: LTS_nexus
+  ssp: SSP1
+  rcp: "2p6"         # 2p6, 7p0 or no_climate
+  rel: low           # reliability of the water availability data
+  sdg: baseline      # "baseline" or an SDG policy set (adds environmental flows)
+  time: year
+  nexus_set: nexus
+  # Water module switches (context attributes of message_ix_models.model.water).
+  context:
+    irrigation_source_layer: true      # canal, tubewell, wastewater, desalination for farms
+    fossil_gw_accounting: true         # tag fossil groundwater pumping
+    external_electricity: true         # costed electricity outside Pakistan
+    crop_demand_enabled: false         # food demand + food imports (off: not calibrated)
+    # Price of electricity for water at the region nodes without an energy
+    # model. Each region takes a number or a path {year: price} (linear in
+    # between, flat outside); "default" covers regions not listed; null for
+    # the whole entry = free supply. Converted to the model's unit:
+    #   USD/kWh x 8760 = million USD per GWa, then deflated from
+    #   external_electricity_currency_year to model_currency_year (US GDP deflator).
+    # Starting values: economic cost of grid supply (what the power system
+    # pays), not the subsidised farm tariff; approximate, replace with your
+    # own sourced figures.
+    external_electricity_cost_unit: USD/kWh
+    external_electricity_currency_year: 2023
+    external_electricity_cost:
+      INDIA_WEST: 0.088     # average cost of supply ~7.3 INR/kWh (PFC, FY2022-23), 83 INR/USD
+      INDIA_EAST: 0.088
+      CHINA: 0.065          # Xinjiang/Tibet catalogue price ~0.46 CNY/kWh, 7.1 CNY/USD
+      AFGHAN_NORTH: 0.10    # DABS imports (~0.05-0.08 at the border) plus grid losses
+      AFGHAN_SOUTH: 0.10
+    # Currency year of the model's costs (water module: USD2010). Must match
+    # the Pakistan energy model, so both sides of the border are in one currency.
+    model_currency_year: 2010
+
+# --------------------------------------------------------- 3. calibration
+calibration:
+  # Generic fixes driven by the pre-solve consistency check.
+  cap_unreachable_activity_lo: true
+  fill_missing_lifetime: true
+  collapse_bound_conflicts: true
+  fill_missing_capacity_factor: true
+  # "all": fill every missing capacity_factor with 1.0 (what the notebook
+  # pipeline did); "water": only the technologies listed below.
+  capacity_factor_scope: all
+  water_capacity_factor_techs:
+    [extract_surfacewater, extract_groundwater, extract_gw_fossil, extract_salinewater_cool,
+     basin_to_reg_core, basin_to_reg_plus, reg_to_basin, extract_salinewater_basin, membrane,
+     distillation, electr_supply_water_ext]
+  # Evidence-based fixes found on the LTS energy data (re-derive if it changes).
+  # [node, technology, year, value, mode, reason]
+  bound_activity_lo:
+    - [R12_PAK, gas_cc, 2020, 4.214080711740747, M1, "lo 4.2806 > up 4.2141; collapsed to up"]
+    - [R12_PAK, gas_ct, 2020, 0.0800304402620627, M1, "lo 0.0813 > up 0.0800; collapsed to up"]
+    - [R12_PAK, gas_ppl, 2020, 1.38162634799719, M1, "lo 1.4034 > up 1.3816; collapsed to up"]
+    - [R12_PAK, nuc_hc, 2020, 1.0722345, M1, "lo 1.1299 > up 1.0722; collapsed to up"]
+    - [R12_PAK, wind_res_hist_2010, 2015, 0.0, M1, "up 0 reads as retirement; lo 0.00068 is leftover data"]
+    - [R12_PAK, bio_ppl, 2025, 0.0759, M1, "0.1146 GW x capacity factor 0.6625 = 0.0759 GWa reachable"]
+
+# --------------------------------------------------------------- 4. solve
+solve:
+  solve_options: {lpmethod: "1", scaind: "1", iis: "1", conflictdisplay: "2"}
+  # Soft irrigation floor: report the shortfall instead of failing.
+  gams_args: ['--SLACK_RELATION_BOUND_LO=""']
+
+# ------------------------------------------------------------ 5. reporting
+report:
+  years: [2025, 2030, 2035, 2040, 2045, 2050, 2055, 2060, 2070]
+  output_dir: ~/Documents/WIT-WORK/NEST-Pakistan/NEST_IRB/reports
+  # Region groups: name -> substrings matched against node names.
+  groups:
+    Pakistan: ["|PAKISTAN", R12_PAK]
+    India: ["|INDIA_EAST", "|INDIA_WEST", INDIA_EAST, INDIA_WEST]
+    China: ["|CHINA", CHINA]
+    Afghanistan: ["|AFGHAN_NORTH", "|AFGHAN_SOUTH", AFGHAN_NORTH, AFGHAN_SOUTH]
+  # "Upper basins" = every group except the first; the last aggregate is
+  # the whole basin. The national energy node is the first value of
+  # basin.region_node_map.

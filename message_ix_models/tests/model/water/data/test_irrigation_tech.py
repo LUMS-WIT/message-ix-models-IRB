@@ -108,6 +108,11 @@ def test_add_irrigation_techs(water_context, water_scenario, assert_message_para
     if not elec_rows.empty:
         assert set(elec_rows["level"]) == {"final"}
         assert (elec_rows["value"] > 0).all()
+        # ...drawn from the region's energy node, as the diversions do: basin
+        # nodes generate no electricity of their own.
+        origin = dict(zip(elec_rows["node_loc"], elec_rows["node_origin"]))
+        assert all(origin[n] == "R12_PAK" for n in origin if n.endswith("|PAKISTAN"))
+        assert all(origin[n] == n.split("|")[1] for n in origin if not n.endswith("|PAKISTAN"))
 
     # Groundwater recharge output reuses the existing groundwater_basin
     # commodity (feeding the existing gw_recharge technology) -- no new
@@ -117,8 +122,10 @@ def test_add_irrigation_techs(water_context, water_scenario, assert_message_para
     assert set(gw_rows["level"]) == {"water_avail_basin"}
     assert (gw_rows["value"] >= 0).all()
 
-    # Basin-local: node_loc == node_origin (input) / node_dest (output).
-    assert (inp["node_loc"] == inp["node_origin"]).all()
+    # Basin-local: node_loc == node_origin (input) / node_dest (output),
+    # except electricity, which comes from the region node (checked above).
+    non_elec = inp[inp["commodity"] != "electr"]
+    assert (non_elec["node_loc"] == non_elec["node_origin"]).all()
     assert (out["node_loc"] == out["node_dest"]).all()
 
     # Only irr_flood_<crop> gets a historical capacity bound (config's

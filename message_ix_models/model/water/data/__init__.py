@@ -19,6 +19,7 @@ from .crops.land import add_crop_land_techs
 from .crops.rainfed import add_rainfed_techs
 from .fossil_groundwater import add_fossil_groundwater
 from .demands import add_irrigation_demand, add_sectoral_demands, add_water_availability
+from .external_electricity import add_external_electricity
 from .infrastructure import add_desalination, add_infrastructure_techs
 from .irrigation import add_irr_structure
 from .network import add_network_techs
@@ -81,6 +82,8 @@ DATA_FUNCTIONS_COUNTRY: list[DataFunc] = [
     add_reservoir_storage,  # Reservoir/dam storage (GRanD + WAPDA data port)
     add_fossil_groundwater,  # ON by default (context.fossil_gw_accounting; + fossil_gw_limit):
     # R fossil groundwater accounting + limit -- see fossil_groundwater.py.
+    add_external_electricity,  # ON by default (context.external_electricity): costed
+    # electricity for water technologies outside Pakistan -- see external_electricity.py.
 ]
 
 

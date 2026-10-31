@@ -85,7 +85,8 @@ import pandas as pd
 from message_ix import make_df
 
 from message_ix_models import Context, ScenarioInfo
-from message_ix_models.model.water.utils import get_vintage_and_active_years
+from message_ix_models.model.water.utils import REGION_NODE_MAP as _DEFAULT_REGION_NODE_MAP
+from message_ix_models.model.water.utils import get_vintage_and_active_years, region_node_map
 from message_ix_models.util import broadcast, package_data_path, same_node, same_time
 
 from .common import basins_with_crop_data, read_historical_irrigation_withdrawals
@@ -195,10 +196,10 @@ def _modes(spec: dict) -> list[str]:
     return ["M1", FOSSIL_MODE] if spec.get("fossil") else ["M1"]
 
 
-#: Same raw-REGION -> node mapping infrastructure.py uses for its electricity
-#: inputs (basins draw power from their region's node, not the basin node,
-#: which has no electricity supply of its own).
-REGION_NODE_MAP = {"PAKISTAN": "R12_PAK"}
+#: Basins draw power from their region's node (the same raw-REGION -> node
+#: mapping infrastructure.py uses), not the basin node, which has no
+#: electricity supply of its own. ``context.region_node_map`` overrides it.
+REGION_NODE_MAP = _DEFAULT_REGION_NODE_MAP
 
 
 def electricity_origin(context: "Context", basins) -> dict[str, str]:
@@ -209,7 +210,7 @@ def electricity_origin(context: "Context", basins) -> dict[str, str]:
     if path.exists():
         df = pd.read_csv(path)
         df = df[df["BCU_name"].isin(basins)]
-        origin.update(zip("B" + df["BCU_name"].astype(str), df["REGION"].replace(REGION_NODE_MAP)))
+        origin.update(zip("B" + df["BCU_name"].astype(str), df["REGION"].replace(region_node_map(context))))
     return origin
 
 

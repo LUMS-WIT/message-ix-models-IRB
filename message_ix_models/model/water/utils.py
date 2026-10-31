@@ -53,6 +53,15 @@ m3_GJ_TO_MCM_GWa = registry("m^3/GJ").to("m^3/GWa").magnitude / 1e6
 REGION_NODE_MAP = {"PAKISTAN": "R12_PAK"}
 
 
+def region_node_map(context: "Context | None" = None) -> dict[str, str]:
+    """Delineation REGION -> model node, for regions whose node name differs.
+
+    ``context.region_node_map`` overrides the Indus default, so another
+    basin can name its own national energy node (e.g. ``{"EGYPT": "R12_EGY"}``).
+    """
+    return dict(getattr(context, "region_node_map", None) or REGION_NODE_MAP)
+
+
 def basin_region_map(context: Context) -> pd.DataFrame:
     """Return a BCU_name-indexed frame with each basin's parent region node.
 
@@ -71,7 +80,7 @@ def basin_region_map(context: Context) -> pd.DataFrame:
         region=(
             context.map_ISO_c[context.regions]
             if getattr(context, "type_reg", "global") == "country"
-            else df_node["REGION"].replace(REGION_NODE_MAP)
+            else df_node["REGION"].replace(region_node_map(context))
         )
     )
     return df_node.set_index("BCU_name")
